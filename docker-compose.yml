@@ -12,18 +12,18 @@ services:
       - "7070:7070"
     depends_on:
       - application_db
-#  ui:
-#    build: ./ui
-#    image: ui
-#    ports:
-#      - "9090:3000"
-#      - "35729:35729"
-#    volumes:
-#      - "./ui:/usr/src/app"
-#      - "/usr/src/app/node_modules"
-#    environment:
-#     - NODE_ENV=development
-#     - CHOKIDAR_USEPOLLING=true
+  ui:
+    build: ./ui
+    image: ui
+    ports:
+      - "9090:3000"
+      - "35729:35729"
+    volumes:
+      - "./ui:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    environment:
+     - NODE_ENV=development
+     - CHOKIDAR_USEPOLLING=true
   keycloak_db:
     image: mysql:5.7.22
     ports:
