@@ -2,16 +2,17 @@ version: '3'
 services:
   application_db:
     build: ./db
-    image: db
     ports:
-      - "5432:5432"
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root_password
   rest:
     build: ./rest
     image: rest
     ports:
       - "7070:7070"
-    depends_on:
-      - application_db
   ui:
     build: ./ui
     image: ui
@@ -24,27 +25,23 @@ services:
     environment:
      - NODE_ENV=development
      - CHOKIDAR_USEPOLLING=true
-  keycloak_db:
-    image: mysql:5.7.22
+  postgres:
+    image: postgres
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      - MYSQL_DATABASE=keycloak
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_PASSWORD=root_password
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
   keycloak:
     image: jboss/keycloak:4.0.0.Final
     ports:
       - "8080:8080"
     depends_on:
-      - keycloak_db
+      - postgres
     environment:
-      - DB_VENDOR=MYSQL
-      - MYSQL_ADDR=keycloak_db
+      - DB_VENDOR=POSTGRES
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
-      - MYSQL_DATABASE=keycloak
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_PASSWORD=root_password
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_PORT_5432_TCP_ADDR=postgres
