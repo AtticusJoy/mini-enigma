@@ -17,7 +17,7 @@ services:
     build: ./ui
     image: ui
     ports:
-      - "9090:3000"
+      - "3000:3000"
       - "35729:35729"
     volumes:
       - "./ui:/usr/src/app"

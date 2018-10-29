@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import ManagerPage from './components/ManagerPage';
+import EmployeePage from './components/EmployeePage';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    render() {
+        let isManager = this.props.keycloak.hasRealmRole('MANAGER');
+        if(isManager){
+            return (
+                <div>
+                    <ManagerPage keycloak={this.props.keycloak}/>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <EmployeePage keycloak={this.props.keycloak}/>
+                </div>
+            )
+        }
+    }
 }
 
 export default App;
