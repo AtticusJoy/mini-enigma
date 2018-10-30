@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 public class ConnectionHandler {
 
-    public static Connection startConnection(){
+    public static Connection startConnection() {
         Connection connection = null;
-        String url       = "jdbc:mysql://localhost:3306/mysqljdbc";
-        String user      = "root";
-        String password  = "root_password";
+        String url = "jdbc:mysql://application_db:3306/recordsdb";
+        String user = "root";
+        String password = "root_password";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
@@ -18,5 +18,13 @@ public class ConnectionHandler {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public static void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,20 +1,21 @@
 import axios from 'axios/index';
-import qs from 'qs';
 
 export default class AxiosClient {
 
     mainPath = 'http://localhost:7070';
 
-    clockIn = (keycloak) => {
+    clockInOut = (keycloak, clockInOut) => {
+        console.log(keycloak.idTokenParsed.preferred_username);
         axios.post(this.mainPath + "/clockIn", {
-            username: keycloak.idToken.preferred_username
+            username: keycloak.idTokenParsed.preferred_username,
+            action: clockInOut
         }).then(response => {
             if(response.status === 200){
-                alert("Login Successful")
+                alert(response.data)
             } else if(response.status === 400){
-                alert("Bad Request")
+                alert(response.data)
             } else {
-                alert("Unexpected Error")
+                alert("Unexpected Error: " + response.data)
             }
         })
     }
