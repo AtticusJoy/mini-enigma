@@ -26,7 +26,7 @@ USE `recordsdb`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 Create Table recordsdb.Employees_Record(
-Employees_Record_id int(11),
+Employees_Record_id int(11) auto_increment,
 EmployeeUID varchar(325) not null,
 Username	varchar(325) not null,
 Timestamp varchar(325) not null,
