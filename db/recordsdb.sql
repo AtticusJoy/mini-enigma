@@ -25,5 +25,11 @@ USE `recordsdb`;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
+Create Table recordsdb.Employees_Record(
+Employees_Record_id int(11) auto_increment,
+Username	varchar(325) not null,
+Timestamp varchar(325) not null,
+Action varchar(128) not null,
+PRIMARY KEY (`Employees_Record_id`)
+);
 -- Dump completed on 2018-10-26 14:37:52
