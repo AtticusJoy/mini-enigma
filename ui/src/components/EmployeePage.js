@@ -17,7 +17,7 @@ export default class EmployeePage extends Component {
     clockOut = () => {
         let clockOut = "ClockOut";
         new AxiosClient().clockInOut(this.props.keycloak, clockOut)
-    }
+    };
 
     render() {
         return (

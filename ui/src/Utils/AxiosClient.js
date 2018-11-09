@@ -6,7 +6,7 @@ export default class AxiosClient {
 
     clockInOut = (keycloak, clockInOut) => {
         console.log(keycloak.idTokenParsed.preferred_username);
-        axios.post(this.mainPath + "/clockIn", {
+        axios.post(this.mainPath + "/clockInOut", {
             username: keycloak.idTokenParsed.preferred_username,
             action: clockInOut
         }).then(response => {
