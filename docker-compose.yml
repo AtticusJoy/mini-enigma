@@ -13,6 +13,7 @@ services:
     image: rest
     ports:
       - "7070:7070"
+    command: ["bash", "init.sh"]
   ui:
     build: ./ui
     image: ui

@@ -2,9 +2,11 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 ### Build Related ###
+ui/build
 ui/node_modules
 ui/target
 rest/target
+ui/build
 
 ### STS ###
 .apt_generated
