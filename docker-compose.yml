@@ -26,7 +26,6 @@ services:
     environment:
      - NODE_ENV=development
      - CHOKIDAR_USEPOLLING=true
-    command: ["bash", "init.sh"]
   postgres:
     image: postgres
     ports:
