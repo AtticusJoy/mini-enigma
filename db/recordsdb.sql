@@ -25,5 +25,17 @@ USE `recordsdb`;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
+Create Table recordsdb.EmployeesRecord(
+employee_record_id int(11) auto_increment,
+employee_username varchar(325),
+PRIMARY KEY (`employee_record_id`)
+);
+Create Table recordsdb.TimeActionRecord(
+time_action_record_id int(186) auto_increment,
+employee_record_id int(11),
+clock_in_timestamp datetime DEFAULT current_timestamp,
+clock_out_timestamp datetime,
+PRIMARY KEY (`time_action_record_id`),
+FOREIGN KEY (employee_record_id) REFERENCES recordsdb.EmployeesRecord(employee_record_id)
+);
 -- Dump completed on 2018-10-26 14:37:52
