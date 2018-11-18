@@ -1,6 +1,6 @@
-package com.group.project.com.group.project.controller;
+package com.group.project.controller;
 
-import com.group.project.com.group.project.dto.User;
+import com.group.project.dto.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 

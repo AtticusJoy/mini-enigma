@@ -1,4 +1,4 @@
-package com.group.project.com.group.project.dto;
+package com.group.project.dto;
 
 public class TimeRecordRow {
 

@@ -1,4 +1,4 @@
-package com.group.project.com.group.project.com.group.entity;
+package com.group.project.entity;
 
 import javax.persistence.*;
 import java.util.Date;
