@@ -1,6 +1,6 @@
 package com.group.project.com.group.project.dto;
 
-public class TimeRecordDTO {
+public class TimeRecordRow {
 
     private int id;
     private String username;
