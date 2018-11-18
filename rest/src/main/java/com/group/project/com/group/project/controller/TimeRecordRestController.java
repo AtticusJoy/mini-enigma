@@ -1,5 +1,6 @@
 package com.group.project.com.group.project.controller;
 
+import com.group.project.com.group.project.dto.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,26 +11,26 @@ public class TimeRecordRestController {
     // private TimeRecordService timeRecordService;
 
     @PostMapping("/getData")
-    // Update to include User as parameter once POJO built
     // Update to return ResponseEntity<List<TimeRecordUI>> once POJO built
-    public String listTimeRecords(String username) {
+    public String listTimeRecords(User user) {
 
+        // call corresponding service method and pass in user
         return "returning from TimeRecordRestController: listTimeRecords";
     }
 
     @PostMapping ("/clockIn")
-    // Update to include User as parameter once POJO built
     // Update to return ResponseEntity with status
     public String addClockIn(String username) {
 
+        // call corresponding service method and pass in username
         return "returning from TimeRecordRestController: addClockIn";
     }
 
     @PostMapping ("clockOut")
-    // Update to include User as parameter once POJO built
     // Update to return ResponseEntity with status
     public String addClockOut(String username) {
 
+        // call corresponding service method and pass in username
         return "returning from TimeRecordRestController: addClockOut";
     }
 }
