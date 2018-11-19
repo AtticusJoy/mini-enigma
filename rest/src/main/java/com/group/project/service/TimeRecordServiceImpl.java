@@ -6,6 +6,7 @@ import com.group.project.entity.TimeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -19,18 +20,21 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     }
 
     @Override
+    @Transactional
     public List<TimeRecord> getTimeRecords(User user) {
 
         return timeRecordDAO.getTimeRecords(user);
     }
 
     @Override
+    @Transactional
     public String saveClockIn(String username) {
 
         return timeRecordDAO.saveClockIn(username);
     }
 
     @Override
+    @Transactional
     public String saveClockOut(String username) {
 
         return timeRecordDAO.saveClockOut(username);
