@@ -1,36 +1,48 @@
 package com.group.project.controller;
 
+import com.group.project.dto.TimeRecordRow;
 import com.group.project.dto.User;
+import com.group.project.entity.TimeRecord;
+import com.group.project.service.TimeRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class TimeRecordRestController {
 
-    // @Autowired
-    // private TimeRecordService timeRecordService;
+    private TimeRecordService timeRecordService;
+
+    public TimeRecordRestController(TimeRecordService timeRecordService) {
+        this.timeRecordService = timeRecordService;
+    }
 
     @PostMapping("/getData")
-    // Update to return ResponseEntity<List<TimeRecordUI>> once POJO built
-    public String listTimeRecords(User user) {
+    // Add Consumes etc. that Peter expects
+    public ResponseEntity<List<TimeRecordRow>> listTimeRecords(User user) {
 
-        // call corresponding service method and pass in user
-        return "returning from TimeRecordRestController: listTimeRecords";
+        List<TimeRecord> timeRecords = timeRecordService.getTimeRecords(user);
+
+        // return ResponseEntity per Resource example
+        return null;
     }
 
     @PostMapping ("/clockIn")
-    // Update to return ResponseEntity with status
-    public String addClockIn(String username) {
+    public ResponseEntity addClockIn(String username) {
 
-        // call corresponding service method and pass in username
-        return "returning from TimeRecordRestController: addClockIn";
+        String status = timeRecordService.saveClockIn(username);
+
+        return null;
     }
 
     @PostMapping ("clockOut")
-    // Update to return ResponseEntity with status
     public String addClockOut(String username) {
 
-        // call corresponding service method and pass in username
-        return "returning from TimeRecordRestController: addClockOut";
+        String status = timeRecordService.saveClockOut(username);
+
+        return null;
     }
 }
