@@ -3,6 +3,8 @@ package com.group.project;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+//created by petar.petrov
+
 @SpringBootApplication
 public class ProjectApplication {
 
