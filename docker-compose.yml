@@ -13,11 +13,12 @@ services:
     image: rest
     ports:
       - "7070:7070"
+    command: ["bash", "init.sh"]
   ui:
     build: ./ui
     image: ui
     ports:
-      - "9090:3000"
+      - "3000:3000"
       - "35729:35729"
     volumes:
       - "./ui:/usr/src/app"
@@ -25,6 +26,7 @@ services:
     environment:
      - NODE_ENV=development
      - CHOKIDAR_USEPOLLING=true
+    command: ["bash", "init.sh"]
   postgres:
     image: postgres
     ports:
