@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.3.2",
+    "axios": "^0.18.0",
     "keycloak-js": "^4.0.0",
+    "material-ui": "^0.20.2",
+    "qs": "^6.5.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.5"

@@ -18,5 +18,3 @@ wait_for_port() {
 }
 
 wait_for_port "MySQL" "application_db" "3306"
-exec npm start
-# node_modules/.bin/node-sass --include-path scss src/App.scss src/App.css && npm start
