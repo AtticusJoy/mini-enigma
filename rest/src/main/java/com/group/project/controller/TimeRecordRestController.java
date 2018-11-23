@@ -7,11 +7,14 @@ import com.group.project.service.TimeRecordService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class TimeRecordRestController {
 
@@ -23,7 +26,7 @@ public class TimeRecordRestController {
 
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     // Add Consumes etc. that Peter expects
-    public ResponseEntity<List> listTimeRecords(User user) {
+    public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
 
         List<TimeRecord> timeRecords = timeRecordService.getTimeRecords(user);
 
@@ -33,7 +36,7 @@ public class TimeRecordRestController {
     }
 
     @PostMapping (path = "/clockIn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addClockIn(String username) {
+    public ResponseEntity<String> addClockIn(@RequestBody String username) {
 
         String status = timeRecordService.saveClockIn(username);
 
@@ -41,8 +44,8 @@ public class TimeRecordRestController {
         return ResponseEntity.status(HttpStatus.OK).body(status);
     }
 
-    @PostMapping (path = "clockOut", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addClockOut(String username) {
+    @PostMapping (path = "/clockOut", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addClockOut(@RequestBody String username) {
 
         String status = timeRecordService.saveClockOut(username);
 
