@@ -7,12 +7,10 @@ Setting up Keycloak
 2.	Username: admin
 Password: admin
 3.	Upper left corner -> Add realm -> Name: demo -> Click Create
-4.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Root URL: localhost:9090 -> Save
+4.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Root URL: localhost:3000 -> Save
 5.	Upper left corner -> Roles -> Add Role -> Role Name: EMPLOYEE -> Save
 6.	Repeat the steps for MANGER
 7.	Left side -> Groups -> New -> Name: Employees -> Save -> Role Mappings -> Highlight EMPLOYEE -> Add selected
 8.	Repeat the steps for Manager group
 9.	Left side -> Users -> Add user -> Username: any name -> Save -> Credentials -> New Password: any password, Password Confirmation: same password -> Reset Password -> Change Password -> Role Mappings: highlight EMPLOYEE -> Add selected
-10.	Go to localhost:9090 -> Log in with the user and credentials that you created
-
-Note: The 9090 port will change to 3000 with the addition of new code.
+10.	Go to localhost:3000 -> Log in with the user and credentials that you created
