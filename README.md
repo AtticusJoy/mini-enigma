@@ -32,6 +32,7 @@ Something unique must be happening with Mac and Chrome as a CORS error appears t
 To circumvent this for now:
 1. In Keycloak (localhost: 8080) go to the demo realm, click on client, then front-end, then scroll down to "valid URIs" and replace what was auto filled with "*"
 2. Open up google chrome without web security using the command $ open -a Google\ Chrome --args --disable-web-security —user-data-dir
+3. If step two's command didn't work, try this command $ open -n -a /Applications/Google\ Chrome.app --args --user-data-dir="/tmp/someFolderName" --disable-web-security
 
 In case you want to do a hard reset, you want to close and purge all Docker containers by following the next commands:
 1. docker ps (To inspect current running containers)
