@@ -1,26 +1,34 @@
 //created by petar.petrov
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import AxiosClient from "./utils/AxiosClient";
 
 class App extends Component {
+
+    logout = () => {
+        this.props.keycloak.logout();
+    };
+
+    clockIn = () => {
+        new AxiosClient().clockIn(this.props.keycloak)
+    };
+
+    clockOut = () => {
+        new AxiosClient().clockOut(this.props.keycloak)
+    };
+
+
+
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
+            <div>
+                <MuiThemeProvider>
+                    <RaisedButton label="Logout" onClick={this.logout}/>
+                    <RaisedButton label="Clock In" onClick={this.clockIn}/>
+                    <RaisedButton label="Clock Out" onClick={this.clockOut}/>
+                </MuiThemeProvider>
             </div>
         );
     }
