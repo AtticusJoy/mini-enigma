@@ -17,22 +17,15 @@ Setting up Keycloak
 1.	Go to localhost:8080
 2.	Username: admin Password: admin
 3.	Upper left corner -> click on Master -> Add realm -> Name: demo -> Click Create
-4.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Root URL: localhost:3000 -> Save
-5.	Upper left corner -> Roles -> Add Role -> Role Name: EMPLOYEE -> Save
-6.	Repeat the step 5 for MANAGER
-7.	Left side -> Groups -> New -> Name: Employees -> Save -> Role Mappings -> Highlight EMPLOYEE -> Add selected
-8.	Repeat the step 7 for Managers group
-9.	Left side -> Users -> Add user -> Username: any name -> Save -> Credentials -> New Password: any password, Password Confirmation: same password -> Reset Password -> Change Password -> Goups: highlight Employees -> Click on Join
-10.	Go to localhost:3000 -> Log in with the user and credentials that you created
-11. On first login with new user -> reset password -> confirm password -> reset password button
-
-Known Complications with Mac  
-Something unique must be happening with Mac and Chrome as a CORS error appears there but not when the user/client is using windows with google chrome
-
-To circumvent this for now:
-1. In Keycloak (localhost: 8080) go to the demo realm, click on client, then front-end, then scroll down to "valid URIs" and replace what was auto filled with "*"
-2. Open up google chrome without web security using the command $ open -a Google\ Chrome --args --disable-web-security —user-data-dir
-3. If step two's command didn't work, try this command $ open -n -a /Applications/Google\ Chrome.app --args --user-data-dir="/tmp/someFolderName" --disable-web-security
+4.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Save
+5.  Upper left corner -> Clients -> frontend-app -> valid Redirect URIs -> http://localhost:8080/* -> Click "+" -> http://localhost:3000/* -> Click "+" -> Scroll down to Web Origin -> Re-enter previous two routes
+6.	Upper left corner -> Roles -> Add Role -> Role Name: EMPLOYEE -> Save
+7.	Repeat the step 5 for MANAGER
+8.	Left side -> Groups -> New -> Name: Employees -> Save -> Role Mappings -> Highlight EMPLOYEE -> Add selected
+9.	Repeat the step 7 for Managers group
+10.	Left side -> Users -> Add user -> Username: any name -> Save -> Credentials -> New Password: any password, Password Confirmation: same password -> Reset Password -> Change Password -> Goups: highlight Employees -> Click on Join
+11.	Go to localhost:3000 -> Log in with the user and credentials that you created
+12. On first login with new user -> reset password -> confirm password -> reset password button
 
 In case you want to do a hard reset, you want to close and purge all Docker containers by following the next commands:
 1. docker ps (To inspect current running containers)
