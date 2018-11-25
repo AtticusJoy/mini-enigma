@@ -48,7 +48,8 @@ public class Config implements WebMvcConfigurer {
 
         // set the jdbc driver
         try {
-            myDataSource.setDriverClass("jdbc.driver");
+            //myDataSource.setDriverClass("jdbc.driver");
+            myDataSource.setDriverClass("com.mysql.jdbc.Driver");
         }
         catch (PropertyVetoException exc) {
             throw new RuntimeException(exc);
