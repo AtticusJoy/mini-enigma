@@ -1,3 +1,5 @@
+#created by petar.petrov
+
 version: '3'
 services:
   application_db:
