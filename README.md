@@ -23,7 +23,7 @@ Setting up Keycloak
 7.	Repeat the step 5 for MANAGER
 8.	Left side -> Groups -> New -> Name: Employees -> Save -> Role Mappings -> Highlight EMPLOYEE -> Add selected
 9.	Repeat the step 7 for Managers group
-10.	Left side -> Users -> Add user -> Username: any name -> Save -> Credentials -> New Password: any password, Password Confirmation: same password -> Reset Password -> Change Password -> Goups: highlight Employees -> Click on Join
+10.	Left side -> Users -> Add user -> Username: any name -> Save -> Credentials -> New Password: any password, Password Confirmation: same password -> Reset Password -> Change Password -> Groups: highlight Employees -> Click on Join
 11.	Go to localhost:3000 -> Log in with the user and credentials that you created
 12. On first login with new user -> reset password -> confirm password -> reset password button
 
