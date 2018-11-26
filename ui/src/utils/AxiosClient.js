@@ -17,7 +17,7 @@ export default class AxiosClient {
 
     clockOut = (keycloak) => {
         axios.post(this.mainPath + "/clockOut", {
-            username: keycloak.idTokenParsed.preferred_usrname
+            username: keycloak.idTokenParsed.preferred_username
         }).then(response => {
             alert(response.data)
         }).catch(error => {
@@ -26,7 +26,7 @@ export default class AxiosClient {
     };
 
     getData = (keycloak, updater) => {
-        console.log(keycloak);
+        console.log(keycloak.idTokenParsed.preferred_username);
         console.log(keycloak.tokenParsed.realm_access.roles.pop());
         axios.post(this.mainPath + "/getData", {
             username: keycloak.idTokenParsed.preferred_usrname,

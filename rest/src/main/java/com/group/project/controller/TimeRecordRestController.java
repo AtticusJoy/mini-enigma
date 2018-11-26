@@ -4,6 +4,8 @@ import com.group.project.dto.TimeRecordRow;
 import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
 import com.group.project.service.TimeRecordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TimeRecordRestController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TimeRecordRestController.class);
 
     private TimeRecordService timeRecordService;
 
@@ -52,6 +56,8 @@ public class TimeRecordRestController {
 
         results.add(timeRecordRow1);
         results.add(timeRecordRow2);
+
+        logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + user.getUsername() + " " + user.getRole());
 
         return ResponseEntity.ok(results);
     }
