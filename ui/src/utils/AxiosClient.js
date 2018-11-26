@@ -26,9 +26,11 @@ export default class AxiosClient {
     };
 
     getData = (keycloak, updater) => {
+        console.log(keycloak);
+        console.log(keycloak.tokenParsed.realm_access.roles.pop());
         axios.post(this.mainPath + "/getData", {
             username: keycloak.idTokenParsed.preferred_usrname,
-            role: "EMPLOYEE"
+            role: keycloak.tokenParsed.realm_access.roles.pop()
         }).then(response => {updater(response.data)
         }).catch(error => {
             alert(error)

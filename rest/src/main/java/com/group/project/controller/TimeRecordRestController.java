@@ -43,7 +43,7 @@ public class TimeRecordRestController {
 
 
         TimeRecordRow timeRecordRow2 = new TimeRecordRow();
-        timeRecordRow2.setId(1);
+        timeRecordRow2.setId(2);
         timeRecordRow2.setUsername("Cody");
         timeRecordRow2.setDate("11/25/2018");
         timeRecordRow2.setTimeIn("9AM");
