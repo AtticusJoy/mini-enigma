@@ -20,7 +20,7 @@ const styles = theme => ({
     },
 });
 
-class UserTable extends Component {
+class DataTable extends Component {
 
     state = {
         data: []
@@ -65,8 +65,8 @@ class UserTable extends Component {
     }
 }
 
-UserTable.propTypes = {
+DataTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserTable);
+export default withStyles(styles)(DataTable);

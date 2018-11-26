@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import Table from './components/Table';
+import DataTable from './components/Table';
 import AxiosClient from "./utils/AxiosClient";
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
                     <RaisedButton label="Clock In" onClick={this.clockIn}/>
                     <RaisedButton label="Clock Out" onClick={this.clockOut}/>
                     <RaisedButton label="Logout" onClick={this.logout}/>
-                    <Table keycloak={this.props.keycloak}/>
+                    <DataTable keycloak={this.props.keycloak}/>
                 </MuiThemeProvider>
             </div>
         );
