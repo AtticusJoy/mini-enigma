@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -27,12 +28,32 @@ public class TimeRecordRestController {
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     // Add Consumes etc. that Peter expects
     public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
-
-        List<TimeRecord> timeRecords = timeRecordService.getTimeRecords(user);
-
+//        List<TimeRecord> timeRecords = timeRecordService.getTimeRecords(user);
         // convert List<TimeRecord> into List<TimeRecordRow> then return
 
-        return ResponseEntity.ok(timeRecords);
+        List<TimeRecordRow> results = new ArrayList<>();
+
+        TimeRecordRow timeRecordRow1 = new TimeRecordRow();
+        timeRecordRow1.setId(1);
+        timeRecordRow1.setUsername("Peter");
+        timeRecordRow1.setDate("11/25/2018");
+        timeRecordRow1.setTimeIn("9AM");
+        timeRecordRow1.setTimeOut("5PM");
+        timeRecordRow1.setHoursWorked(8);
+
+
+        TimeRecordRow timeRecordRow2 = new TimeRecordRow();
+        timeRecordRow2.setId(1);
+        timeRecordRow2.setUsername("Cody");
+        timeRecordRow2.setDate("11/25/2018");
+        timeRecordRow2.setTimeIn("9AM");
+        timeRecordRow2.setTimeOut("5PM");
+        timeRecordRow2.setHoursWorked(8);
+
+        results.add(timeRecordRow1);
+        results.add(timeRecordRow2);
+
+        return ResponseEntity.ok(results);
     }
 
     @PostMapping (path = "/clockIn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

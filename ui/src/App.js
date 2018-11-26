@@ -26,9 +26,9 @@ class App extends Component {
         return (
             <div>
                 <MuiThemeProvider>
-                    <RaisedButton label="Logout" onClick={this.logout}/>
                     <RaisedButton label="Clock In" onClick={this.clockIn}/>
                     <RaisedButton label="Clock Out" onClick={this.clockOut}/>
+                    <RaisedButton label="Logout" onClick={this.logout}/>
                     <Table keycloak={this.props.keycloak}/>
                 </MuiThemeProvider>
             </div>
