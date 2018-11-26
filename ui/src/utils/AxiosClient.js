@@ -10,8 +10,8 @@ export default class AxiosClient {
             username: keycloak.idTokenParsed.preferred_username
         }).then(response => {
             alert(response.data)
-        }).catch(response => {
-            alert("Unexpected error: " + response.data)
+        }).catch(error => {
+            alert("Unexpected error: " + error.data)
         })
     };
 
@@ -20,10 +20,18 @@ export default class AxiosClient {
             username: keycloak.idTokenParsed.preferred_usrname
         }).then(response => {
             alert(response.data)
-        }).catch(response => {
-            alert("Unexpected error: " + response.data)
+        }).catch(error => {
+            alert("Unexpected error: " + error.data)
+        })
+    };
+
+    getData = (keycloak, updater) => {
+        axios.post(this.mainPath + "/getData", {
+            username: keycloak.idTokenParsed.preferred_usrname,
+            role: "EMPLOYEE"
+        }).then(response => {updater(response.data)
+        }).catch(error => {
+            alert(error)
         })
     }
-
-
 }

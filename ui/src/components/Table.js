@@ -23,12 +23,11 @@ const styles = theme => ({
 class UserTable extends Component {
 
     state = {
-        token: this.props.token,
         data: []
     };
 
     componentWillMount = () => {
-        new AxiosClient().getUserData(this.state.token, (data) => {
+        new AxiosClient().getData(this.props.keycloak, (data) => {
             this.setState({data: data})
         })
     };
