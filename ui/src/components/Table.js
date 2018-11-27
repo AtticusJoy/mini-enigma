@@ -49,7 +49,7 @@ class DataTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.data.forEach(row => {
+                            {this.state.data.map(row => {
                                 return (
                                     <TableRow key={row.id}>
                                         <TableCell>{row.username}</TableCell>
