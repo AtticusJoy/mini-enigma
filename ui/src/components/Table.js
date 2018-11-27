@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -33,34 +33,37 @@ class DataTable extends Component {
     };
 
     render() {
+        console.log(this.state.data);
         const {classes} = this.props;
         return (
-            <Paper className={classes.root}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Username</TableCell>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Time In</TableCell>
-                            <TableCell>Time Out</TableCell>
-                            <TableCell>Hours Worked</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.state.data.map(data => {
-                            return (
-                                <TableRow key={data.id}>
-                                    <TableCell>{data.username}</TableCell>
-                                    <TableCell>{data.date}</TableCell>
-                                    <TableCell >{data.timeIn}</TableCell>
-                                    <TableCell >{data.timeOut}</TableCell>
-                                    <TableCell >{data.hoursWorked}</TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </Paper>
+            <div>
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Username</TableCell>
+                                <TableCell>Date</TableCell>
+                                <TableCell>Time In</TableCell>
+                                <TableCell>Time Out</TableCell>
+                                <TableCell>Hours Worked</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.state.data.forEach(row => {
+                                return (
+                                    <TableRow key={row.id}>
+                                        <TableCell>{row.username}</TableCell>
+                                        <TableCell>{row.date}</TableCell>
+                                        <TableCell>{row.timeIn}</TableCell>
+                                        <TableCell>{row.timeOut}</TableCell>
+                                        <TableCell>{row.hoursWorked}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </Paper>
+            </div>
         );
     }
 }

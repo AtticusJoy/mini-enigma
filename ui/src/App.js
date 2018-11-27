@@ -1,5 +1,5 @@
 //created by petar.petrov
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,7 +21,6 @@ class App extends Component {
     };
 
 
-
     render() {
         return (
             <div>
@@ -29,7 +28,9 @@ class App extends Component {
                     <RaisedButton label="Clock In" onClick={this.clockIn}/>
                     <RaisedButton label="Clock Out" onClick={this.clockOut}/>
                     <RaisedButton label="Logout" onClick={this.logout}/>
-                    <DataTable keycloak={this.props.keycloak}/>
+                    <div>
+                        <DataTable keycloak={this.props.keycloak}/>
+                    </div>
                 </MuiThemeProvider>
             </div>
         );
