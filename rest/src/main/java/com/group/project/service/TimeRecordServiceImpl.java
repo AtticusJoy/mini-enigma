@@ -1,42 +1,47 @@
 package com.group.project.service;
 
-import com.group.project.dao.TimeRecordDAO;
 import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.group.project.repository.TimeRecordRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class TimeRecordServiceImpl implements TimeRecordService {
 
-    private TimeRecordDAO timeRecordDAO;
+    private TimeRecordRepository timeRecordRepository;
 
-    @Autowired
-    public TimeRecordServiceImpl(TimeRecordDAO timeRecordDAO) {
-        this.timeRecordDAO = timeRecordDAO;
+    public TimeRecordServiceImpl(TimeRecordRepository timeRecordRepository) {
+        this.timeRecordRepository = timeRecordRepository;
     }
 
     @Override
-    @Transactional
-    public List<TimeRecord> getTimeRecords(User user) {
+    public List<TimeRecord> getTimeRecordsManager() {
 
-        return timeRecordDAO.getTimeRecords(user);
+        return timeRecordRepository.findAll();
     }
 
     @Override
-    @Transactional
-    public String saveClockIn(String username) {
+    public List<TimeRecord> getTimeRecordsEmployee(User user) {
 
-        return timeRecordDAO.saveClockIn(username);
+        // To-do: Create logic to retrieve employeeId from user
+        // Most likely create an Employee Entity/Model and use JPA
+        int employeeId = 1;
+
+        return timeRecordRepository.findByEmployeeId(employeeId);
     }
 
     @Override
-    @Transactional
-    public String saveClockOut(String username) {
+    public void saveClockIn(String username) {
 
-        return timeRecordDAO.saveClockOut(username);
+        timeRecordRepository.save(new TimeRecord());
+    }
+
+    @Override
+    public void saveClockOut(String username) {
+
+        // TO-DO: Add in ClockOut logic, both validation and updating existing record
+        // or do we need to get existing, user setter, then write back? probably not
     }
 }

@@ -1,6 +1,5 @@
-package com.group.project.controller;
+package com.group.project.rest;
 
-import com.group.project.dto.TimeRecordRow;
 import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
 import com.group.project.service.TimeRecordService;
@@ -20,25 +19,28 @@ public class TimeRecordRestController {
 
     private TimeRecordService timeRecordService;
 
+    protected TimeRecordRestController() {}
+
     public TimeRecordRestController(TimeRecordService timeRecordService) {
         this.timeRecordService = timeRecordService;
     }
 
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    // Add Consumes etc. that Peter expects
     public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
 
-        List<TimeRecord> timeRecords = timeRecordService.getTimeRecords(user);
+        //List<TimeRecord> timeRecordsEmployee = timeRecordService.getTimeRecordsEmployee(user);
+        List<TimeRecord> timeRecordsManager = timeRecordService.getTimeRecordsManager();
 
         // convert List<TimeRecord> into List<TimeRecordRow> then return
 
-        return ResponseEntity.ok(timeRecords);
+        return ResponseEntity.ok(timeRecordsManager);
     }
 
     @PostMapping (path = "/clockIn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockIn(@RequestBody String username) {
 
-        String status = timeRecordService.saveClockIn(username);
+        timeRecordService.saveClockIn(username);
+        String status = "Successfully inserted new time record!";
 
         // To-do: Either check status using conditional, or always return success if no exception. If exception return that
         return ResponseEntity.status(HttpStatus.OK).body(status);
@@ -47,7 +49,8 @@ public class TimeRecordRestController {
     @PostMapping (path = "/clockOut", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockOut(@RequestBody String username) {
 
-        String status = timeRecordService.saveClockOut(username);
+        timeRecordService.saveClockOut(username);
+        String status = "Successfully clocked user out!";
 
         // To-do: Either check status using conditional, or always return success if no exception. If exception return that
         return ResponseEntity.status(HttpStatus.OK).body(status);

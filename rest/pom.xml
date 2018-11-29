@@ -56,34 +56,19 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- ADD SUPPORT FOR AUTOMATIC RELOADING -->
         <dependency>
-            <groupId>com.google.code.maven-play-plugin.com.mchange</groupId>
-            <artifactId>c3p0-oracle-thin-extras</artifactId>
-            <version>0.9.5</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>mchange-commons-java</artifactId>
-            <version>0.2.11</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
-        </dependency>
-
     </dependencies>
 
     <build>
