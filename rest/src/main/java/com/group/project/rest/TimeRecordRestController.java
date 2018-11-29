@@ -35,7 +35,7 @@ public class TimeRecordRestController {
         if (user.getRole() == "Manager") {
             timeRecords = timeRecordService.getTimeRecordsManager();
         } else {
-            timeRecords = timeRecordService.getTimeRecordsEmployee(user);
+            timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
         }
 
         // convert List<TimeRecord> into List<TimeRecordRow> then return

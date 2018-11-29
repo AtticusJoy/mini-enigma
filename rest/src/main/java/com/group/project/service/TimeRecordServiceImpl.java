@@ -1,7 +1,7 @@
 package com.group.project.service;
 
-import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
+import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +11,12 @@ import java.util.List;
 public class TimeRecordServiceImpl implements TimeRecordService {
 
     private TimeRecordRepository timeRecordRepository;
+    private EmployeeRecordRepository employeeRecordRepository;
 
-    public TimeRecordServiceImpl(TimeRecordRepository timeRecordRepository) {
+    public TimeRecordServiceImpl(TimeRecordRepository timeRecordRepository,
+                                 EmployeeRecordRepository employeeRecordRepository) {
         this.timeRecordRepository = timeRecordRepository;
+        this.employeeRecordRepository = employeeRecordRepository;
     }
 
     @Override
@@ -23,11 +26,9 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     }
 
     @Override
-    public List<TimeRecord> getTimeRecordsEmployee(User user) {
+    public List<TimeRecord> getTimeRecordsEmployee(String username) {
 
-        // To-do: Create logic to retrieve employeeId from user
-        // Most likely create an Employee Entity/Model and use JPA
-        int employeeId = 1;
+        int employeeId = employeeRecordRepository.findByUserName(username);
 
         return timeRecordRepository.findByEmployeeId(employeeId);
     }
