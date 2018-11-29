@@ -8,7 +8,8 @@ import java.util.Date;
 public class TimeRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "time_action_record_id")
     private int id;
 

@@ -7,9 +7,10 @@ import javax.persistence.*;
 public class EmployeeRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "employee_record_id")
-    private Integer id;
+    private int id;
 
     @Column(name = "employee_username")
     private String username;
