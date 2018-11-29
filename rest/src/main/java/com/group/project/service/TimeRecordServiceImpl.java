@@ -4,9 +4,9 @@ import com.group.project.entity.EmployeeRecord;
 import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -15,6 +15,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     private TimeRecordRepository timeRecordRepository;
     private EmployeeRecordRepository employeeRecordRepository;
 
+    @Autowired
     public TimeRecordServiceImpl(TimeRecordRepository timeRecordRepository,
                                  EmployeeRecordRepository employeeRecordRepository) {
         this.timeRecordRepository = timeRecordRepository;
