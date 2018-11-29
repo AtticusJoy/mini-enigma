@@ -32,7 +32,7 @@ public class TimeRecordRestController {
 
         List<TimeRecord> timeRecords;
 
-        if (user.getRole() == "Manager") {
+        if (user.getRole().equals("Manager")) {
             timeRecords = timeRecordService.getTimeRecordsManager();
         } else {
             timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
@@ -45,7 +45,7 @@ public class TimeRecordRestController {
         return ResponseEntity.ok(timeRecords);
     }
 
-    @PostMapping (path = "/clockIn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping (path = "/clockIn", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockIn(@RequestBody String username) {
 
         timeRecordService.saveClockIn(username);
@@ -55,7 +55,7 @@ public class TimeRecordRestController {
         return ResponseEntity.status(HttpStatus.OK).body(status);
     }
 
-    @PostMapping (path = "/clockOut", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping (path = "/clockOut", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockOut(@RequestBody String username) {
 
         timeRecordService.saveClockOut(username);
