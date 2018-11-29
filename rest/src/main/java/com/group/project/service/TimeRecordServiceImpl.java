@@ -6,6 +6,7 @@ import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -37,7 +38,6 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public void saveClockIn(String username) {
 
-        // Creates new employee if not found and returns userId
         EmployeeRecord employee = employeeRecordRepository.findByUsername(username); //.orElse(saveNewEmployee(username));
         if (employee == null) {
             employee = saveNewEmployee(username);
@@ -51,6 +51,12 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         // TO-DO: Add in ClockOut logic, both validation and updating existing record
         // or do we need to get existing, user setter, then write back? probably not
+
+        int employeeId = employeeRecordRepository.findByUsername(username).getId();
+
+        // gets most recent record for the employeeId
+        TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
+        System.out.println(timeRecord.getId());
     }
 
     @Override
