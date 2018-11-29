@@ -1,10 +1,7 @@
 package com.group.project.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table (name = "employees_record")
 public class EmployeeRecord {
@@ -18,6 +15,25 @@ public class EmployeeRecord {
     private String username;
 
     public EmployeeRecord() {
+    }
 
+    public EmployeeRecord(String username) {
+        this.username = username;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

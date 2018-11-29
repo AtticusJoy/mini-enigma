@@ -1,5 +1,6 @@
 package com.group.project.service;
 
+import com.group.project.entity.EmployeeRecord;
 import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
@@ -36,7 +37,13 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public void saveClockIn(String username) {
 
-        timeRecordRepository.save(new TimeRecord());
+        // Test after existing employee version works
+        // Creates new employee if not found and returns userId
+        // int employeeId = employeeRecordRepository.findByUserName(username).orElse(createNewUser(username));
+
+        int employeeId = employeeRecordRepository.findByUserName(username);
+
+        timeRecordRepository.save(new TimeRecord(employeeId));
     }
 
     @Override
@@ -44,5 +51,12 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         // TO-DO: Add in ClockOut logic, both validation and updating existing record
         // or do we need to get existing, user setter, then write back? probably not
+    }
+
+    @Override
+    public int saveNewEmployee(String username) {
+
+        EmployeeRecord newEmployee = employeeRecordRepository.save(new EmployeeRecord(username));
+        return newEmployee.getId();
     }
 }

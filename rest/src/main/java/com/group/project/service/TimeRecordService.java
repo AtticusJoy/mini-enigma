@@ -11,4 +11,5 @@ public interface TimeRecordService {
     List<TimeRecord> getTimeRecordsEmployee(String username);
     void saveClockIn(String username);
     void saveClockOut(String username);
+    int saveNewEmployee(String username);
 }

@@ -24,6 +24,10 @@ public class TimeRecord {
     public TimeRecord() {
     }
 
+    public TimeRecord(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
     public int getId() {
         return id;
     }
