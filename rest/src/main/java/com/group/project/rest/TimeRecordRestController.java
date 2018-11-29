@@ -3,6 +3,7 @@ package com.group.project.rest;
 import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
 import com.group.project.service.TimeRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class TimeRecordRestController {
 
     protected TimeRecordRestController() {}
 
+    @Autowired
     public TimeRecordRestController(TimeRecordService timeRecordService) {
         this.timeRecordService = timeRecordService;
     }
