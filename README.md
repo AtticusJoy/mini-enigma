@@ -18,7 +18,7 @@ Setting up Keycloak
 2.	Username: admin Password: admin
 3.	Upper left corner -> click on Master -> Add realm -> Name: demo -> Click Create
 4.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Save
-5.  Upper left corner -> Clients -> frontend-app -> valid Redirect URIs -> http://localhost:8080/* -> Click "+" -> http://localhost:3000/* -> Click "+" -> Scroll down to Web Origin -> Re-enter previous two routes
+5.  Upper left corner -> Clients -> frontend-app -> valid Redirect URIs -> http://localhost:8080 -> Click "+" -> http://localhost:3000 -> Click "+" -> Scroll down to Web Origin -> Re-enter previous two routes
 6.	Upper left corner -> Roles -> Add Role -> Role Name: EMPLOYEE -> Save
 7.	Repeat the step 5 for MANAGER
 8.	Left side -> Groups -> New -> Name: Employees -> Save -> Role Mappings -> Highlight EMPLOYEE -> Add selected
@@ -29,6 +29,6 @@ Setting up Keycloak
 
 In case you want to do a hard reset, you want to close and purge all Docker containers by following the next commands:
 1. docker ps (To inspect current running containers)
-2. docker stop <container id>
+2. docker stop container id or docker stop $(docker ps -a -q) to stop all containers
 3. docker system prune -f -a
 4. docker volume prune
