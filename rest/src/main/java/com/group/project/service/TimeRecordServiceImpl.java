@@ -1,42 +1,62 @@
 package com.group.project.service;
 
-import com.group.project.dao.TimeRecordDAO;
-import com.group.project.dto.User;
+import com.group.project.entity.EmployeeRecord;
 import com.group.project.entity.TimeRecord;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.group.project.repository.EmployeeRecordRepository;
+import com.group.project.repository.TimeRecordRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class TimeRecordServiceImpl implements TimeRecordService {
 
-    private TimeRecordDAO timeRecordDAO;
+    private TimeRecordRepository timeRecordRepository;
+    private EmployeeRecordRepository employeeRecordRepository;
 
-    @Autowired
-    public TimeRecordServiceImpl(TimeRecordDAO timeRecordDAO) {
-        this.timeRecordDAO = timeRecordDAO;
+    public TimeRecordServiceImpl(TimeRecordRepository timeRecordRepository,
+                                 EmployeeRecordRepository employeeRecordRepository) {
+        this.timeRecordRepository = timeRecordRepository;
+        this.employeeRecordRepository = employeeRecordRepository;
     }
 
     @Override
-    @Transactional
-    public List<TimeRecord> getTimeRecords(User user) {
+    public List<TimeRecord> getTimeRecordsManager() {
 
-        return timeRecordDAO.getTimeRecords(user);
+        return timeRecordRepository.findAll();
     }
 
     @Override
-    @Transactional
-    public String saveClockIn(String username) {
+    public List<TimeRecord> getTimeRecordsEmployee(String username) {
 
-        return timeRecordDAO.saveClockIn(username);
+        int employeeId = employeeRecordRepository.findByUserName(username);
+
+        return timeRecordRepository.findByEmployeeId(employeeId);
     }
 
     @Override
-    @Transactional
-    public String saveClockOut(String username) {
+    public void saveClockIn(String username) {
 
-        return timeRecordDAO.saveClockOut(username);
+        // Test after existing employee version works
+        // Creates new employee if not found and returns userId
+        // int employeeId = employeeRecordRepository.findByUserName(username).orElse(createNewUser(username));
+
+        int employeeId = employeeRecordRepository.findByUserName(username);
+
+        timeRecordRepository.save(new TimeRecord(employeeId));
+    }
+
+    @Override
+    public void saveClockOut(String username) {
+
+        // TO-DO: Add in ClockOut logic, both validation and updating existing record
+        // or do we need to get existing, user setter, then write back? probably not
+    }
+
+    @Override
+    public int saveNewEmployee(String username) {
+
+        EmployeeRecord newEmployee = employeeRecordRepository.save(new EmployeeRecord(username));
+        return newEmployee.getId();
     }
 }

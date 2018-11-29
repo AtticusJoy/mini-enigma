@@ -1,9 +1,9 @@
-package com.group.project.controller;
+package com.group.project.rest;
 
-import com.group.project.dto.TimeRecordRow;
 import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
 import com.group.project.service.TimeRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +20,27 @@ public class TimeRecordRestController {
 
     private TimeRecordService timeRecordService;
 
+    protected TimeRecordRestController() {}
+
+    @Autowired
     public TimeRecordRestController(TimeRecordService timeRecordService) {
         this.timeRecordService = timeRecordService;
     }
 
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    // Add Consumes etc. that Peter expects
     public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
 
-        List<TimeRecord> timeRecords = timeRecordService.getTimeRecords(user);
+        List<TimeRecord> timeRecords;
+
+        if (user.getRole() == "Manager") {
+            timeRecords = timeRecordService.getTimeRecordsManager();
+        } else {
+            timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
+        }
 
         // convert List<TimeRecord> into List<TimeRecordRow> then return
+        // consider doing this in service with convert helper method
+        // and Controller is only a traffic cop?
 
         return ResponseEntity.ok(timeRecords);
     }
@@ -38,7 +48,8 @@ public class TimeRecordRestController {
     @PostMapping (path = "/clockIn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockIn(@RequestBody String username) {
 
-        String status = timeRecordService.saveClockIn(username);
+        timeRecordService.saveClockIn(username);
+        String status = "Successfully inserted new time record!";
 
         // To-do: Either check status using conditional, or always return success if no exception. If exception return that
         return ResponseEntity.status(HttpStatus.OK).body(status);
@@ -47,7 +58,8 @@ public class TimeRecordRestController {
     @PostMapping (path = "/clockOut", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockOut(@RequestBody String username) {
 
-        String status = timeRecordService.saveClockOut(username);
+        timeRecordService.saveClockOut(username);
+        String status = "Successfully clocked user out!";
 
         // To-do: Either check status using conditional, or always return success if no exception. If exception return that
         return ResponseEntity.status(HttpStatus.OK).body(status);

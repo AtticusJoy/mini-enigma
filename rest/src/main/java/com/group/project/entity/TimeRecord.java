@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "TimeActionRecord")
+@Table(name = "time_action_record")
 public class TimeRecord {
 
     @Id
@@ -22,6 +22,10 @@ public class TimeRecord {
     private Date clockOut;
 
     public TimeRecord() {
+    }
+
+    public TimeRecord(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public int getId() {
