@@ -30,12 +30,19 @@ public class TimeRecordRestController {
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
 
-        //List<TimeRecord> timeRecordsEmployee = timeRecordService.getTimeRecordsEmployee(user);
-        List<TimeRecord> timeRecordsManager = timeRecordService.getTimeRecordsManager();
+        List<TimeRecord> timeRecords;
+
+        if (user.getRole() == "Manager") {
+            timeRecords = timeRecordService.getTimeRecordsManager();
+        } else {
+            timeRecords = timeRecordService.getTimeRecordsEmployee(user);
+        }
 
         // convert List<TimeRecord> into List<TimeRecordRow> then return
+        // consider doing this in service with convert helper method
+        // and Controller is only a traffic cop?
 
-        return ResponseEntity.ok(timeRecordsManager);
+        return ResponseEntity.ok(timeRecords);
     }
 
     @PostMapping (path = "/clockIn", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
