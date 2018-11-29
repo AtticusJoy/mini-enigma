@@ -37,13 +37,13 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public void saveClockIn(String username) {
 
-        // Test after existing employee version works
         // Creates new employee if not found and returns userId
-        // int employeeId = employeeRecordRepository.findByUserName(username).orElse(createNewUser(username));
-
-        System.out.println(username);
-        int employeeId = employeeRecordRepository.findByUsername(username).getId();
-        timeRecordRepository.save(new TimeRecord(employeeId));
+        EmployeeRecord employee = employeeRecordRepository.findByUsername(username); //.orElse(saveNewEmployee(username));
+        if (employee == null) {
+            employee = saveNewEmployee(username);
+        }
+        //System.out.println(username);
+        timeRecordRepository.save(new TimeRecord(employee.getId()));
     }
 
     @Override
@@ -54,10 +54,8 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     }
 
     @Override
-    public int saveNewEmployee(String username) {
+    public EmployeeRecord saveNewEmployee(String username) {
 
-        EmployeeRecord newEmployee = employeeRecordRepository.save(new EmployeeRecord(username));
-
-        return newEmployee.getId();
+        return employeeRecordRepository.save(new EmployeeRecord(username));
     }
 }
