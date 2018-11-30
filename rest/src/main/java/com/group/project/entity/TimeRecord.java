@@ -1,10 +1,14 @@
 package com.group.project.entity;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "time_action_record")
+@EntityListeners(AuditingEntityListener.class)
 public class TimeRecord {
 
     @Id
@@ -17,9 +21,12 @@ public class TimeRecord {
     private int employeeId;
 
     @Column(name = "clock_in_timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     private Date clockIn;
 
     @Column(name = "clock_out_timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date clockOut;
 
     public TimeRecord() {
