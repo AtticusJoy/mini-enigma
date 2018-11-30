@@ -50,14 +50,27 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public void saveClockOut(String username) {
 
-        // TO-DO: Add in ClockOut logic, both validation and updating existing record
-        // or do we need to get existing, user setter, then write back? probably not
-
         int employeeId = employeeRecordRepository.findByUsername(username).getId();
 
         // gets most recent record for the employeeId
         TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
         System.out.println(timeRecord.getId());
+
+        // check if timeRecord has a clock out time already
+        if (timeRecord.getClockOut() != null) {
+            // error
+        } else {
+
+            // Will set current time as clock out time and calculate hoursWorked
+            timeRecord.clockUserOut();
+
+            // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
+            // if (timeRecord.getHoursWorked > maxTimeWorkedPerEntry) {
+            //    // error if true
+            // } else {
+
+            timeRecordRepository.save(timeRecord);
+        }
     }
 
     @Override
