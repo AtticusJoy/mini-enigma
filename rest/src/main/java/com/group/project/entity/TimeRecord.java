@@ -39,7 +39,7 @@ public class TimeRecord {
     // set clockOut to current time and calculate hoursWorked
     // clockOut - clockIn
     public void clockUserOut() {
-
+        setClockOut(new Date());
     }
 
     public int getId() {

@@ -58,6 +58,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         // check if timeRecord has a clock out time already
         if (timeRecord.getClockOut() != null) {
+            System.out.println("Error, clock out already exists on most recent time record!");
             // error
         } else {
 
