@@ -29,6 +29,12 @@ public class TimeRecord {
         this.employeeId = employeeId;
     }
 
+    // set clockOut to current time and calculate hoursWorked
+    // clockOut - clockIn
+    public void clockUserOut() {
+
+    }
+
     public int getId() {
         return id;
     }
