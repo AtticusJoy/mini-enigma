@@ -29,7 +29,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public List<TimeRecord> getTimeRecordsEmployee(String username) {
 
-        int employeeId = employeeRecordRepository.findByUserName(username);
+        int employeeId = employeeRecordRepository.findByUsername(username);
 
         return timeRecordRepository.findByEmployeeId(employeeId);
     }
@@ -39,9 +39,9 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         // Test after existing employee version works
         // Creates new employee if not found and returns userId
-        // int employeeId = employeeRecordRepository.findByUserName(username).orElse(createNewUser(username));
+        // int employeeId = employeeRecordRepository.findByUsername(username).orElse(createNewUser(username));
 
-        int employeeId = employeeRecordRepository.findByUserName(username);
+        int employeeId = employeeRecordRepository.findByUsername(username);
 
         timeRecordRepository.save(new TimeRecord(employeeId));
     }

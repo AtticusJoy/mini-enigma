@@ -6,6 +6,7 @@ services:
     build: ./db
     ports:
       - "3306:3306"
+    restart: always
     environment:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
@@ -16,6 +17,7 @@ services:
     ports:
       - "7070:7070"
     command: ["bash", "init.sh"]
+    restart: always
   ui:
     build: ./ui
     image: ui
@@ -28,14 +30,15 @@ services:
     environment:
      - NODE_ENV=development
      - CHOKIDAR_USEPOLLING=true
-    command: ["bash", "init.sh"]
+    restart: always
   postgres:
     image: postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=password
+      - DB_USER=keycloak
+      - DB_PASSWORD=password
+    restart: always
   keycloak:
     image: jboss/keycloak:4.0.0.Final
     ports:
@@ -49,3 +52,4 @@ services:
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=password
       - POSTGRES_PORT_5432_TCP_ADDR=postgres
+    restart: always
