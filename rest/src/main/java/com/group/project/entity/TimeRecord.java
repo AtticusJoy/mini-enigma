@@ -29,6 +29,9 @@ public class TimeRecord {
     @Temporal(TemporalType.TIMESTAMP)
     private Date clockOut;
 
+    @Column(name = "hours_worked")
+    private Double hoursWorked;
+
     public TimeRecord() {
     }
 
@@ -72,5 +75,13 @@ public class TimeRecord {
 
     public void setClockOut(Date clockOut) {
         this.clockOut = clockOut;
+    }
+
+    public Double getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(Double hoursWorked) {
+        this.hoursWorked = hoursWorked;
     }
 }

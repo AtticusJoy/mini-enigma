@@ -1,5 +1,6 @@
 package com.group.project.service;
 
+import com.group.project.dto.TimeRecordRow;
 import com.group.project.entity.EmployeeRecord;
 import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
@@ -7,6 +8,9 @@ import com.group.project.repository.TimeRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,17 +27,21 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     }
 
     @Override
-    public List<TimeRecord> getTimeRecordsManager() {
+    public List<TimeRecordRow> getTimeRecordsManager() {
 
-        return timeRecordRepository.findAll();
+        List<TimeRecord> timeRecords = timeRecordRepository.findAll();
+
+        return convertToTimeRecordRow(timeRecords);
     }
 
     @Override
-    public List<TimeRecord> getTimeRecordsEmployee(String username) {
+    public List<TimeRecordRow> getTimeRecordsEmployee(String username) {
 
         int employeeId = employeeRecordRepository.findByUsername(username).getId();
 
-        return timeRecordRepository.findByEmployeeId(employeeId);
+        List<TimeRecord> timeRecords = timeRecordRepository.findByEmployeeId(employeeId);
+
+        return convertToTimeRecordRow(timeRecords);
     }
 
     @Override
@@ -54,12 +62,11 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         // gets most recent record for the employeeId
         TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
-        System.out.println(timeRecord.getId());
+        System.out.println("Most recent record id: " + timeRecord.getId());
 
         // check if timeRecord has a clock out time already
         if (timeRecord.getClockOut() != null) {
             System.out.println("Error, clock out already exists on most recent time record!");
-            // error
         } else {
 
             // Will set current time as clock out time and calculate hoursWorked
@@ -78,5 +85,49 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     public EmployeeRecord saveNewEmployee(String username) {
 
         return employeeRecordRepository.save(new EmployeeRecord(username));
+    }
+
+    private List<TimeRecordRow> convertToTimeRecordRow(List<TimeRecord> timeRecords) {
+
+        ArrayList<TimeRecordRow> timeRecordRows = new ArrayList<>();
+        DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat time = new SimpleDateFormat("hh:mm");
+
+        for(TimeRecord record : timeRecords) {
+            TimeRecordRow timeRecordRow = new TimeRecordRow();
+            timeRecordRow.setId(record.getId());
+            timeRecordRow.setUsername(getUsername(record.getEmployeeId()));
+
+            if(record.getClockIn() != null) {
+                timeRecordRow.setDate(date.format(record.getClockIn()));
+            }
+            if(record.getClockIn() != null) {
+                timeRecordRow.setTimeIn(time.format(record.getClockIn()));
+            }
+            if(record.getClockOut() != null) {
+                    timeRecordRow.setTimeOut(time.format(record.getClockOut()));
+            }
+            if(record.getHoursWorked() != null) {
+                timeRecordRow.setHoursWorked(String.valueOf(record.getHoursWorked()));
+            }
+
+            System.out.println("{\nid: " + timeRecordRow.getId()
+                                + "\nuserName: " + timeRecordRow.getUsername()
+                                + "\ndate: " + timeRecordRow.getDate()
+                                + "\ntimeIn: " + timeRecordRow.getTimeIn()
+                                + "\ntimeOut: " + timeRecordRow.getTimeOut()
+                                + "\nhoursWorked: " + timeRecordRow.getHoursWorked());
+
+            timeRecordRows.add(timeRecordRow);
+        }
+
+        return timeRecordRows;
+    }
+
+    private String getUsername(int employeeId) {
+        EmployeeRecord e = employeeRecordRepository.findOne(employeeId);
+        System.out.println(e.getUsername());
+
+        return  e.getUsername();
     }
 }

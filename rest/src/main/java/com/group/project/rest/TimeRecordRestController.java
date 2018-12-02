@@ -1,5 +1,6 @@
 package com.group.project.rest;
 
+import com.group.project.dto.TimeRecordRow;
 import com.group.project.dto.User;
 import com.group.project.entity.TimeRecord;
 import com.group.project.service.TimeRecordService;
@@ -30,7 +31,7 @@ public class TimeRecordRestController {
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
 
-        List<TimeRecord> timeRecords;
+        List<TimeRecordRow> timeRecords;
 
         if (user.getRole().equals("Manager")) {
             timeRecords = timeRecordService.getTimeRecordsManager();
