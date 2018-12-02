@@ -29,6 +29,6 @@ Setting up Keycloak
 
 In case you want to do a hard reset, you want to close and purge all Docker containers by following the next commands:
 1. docker ps (To inspect current running containers)
-2. docker stop <container id>
+2. docker stop container id or docker stop $(docker ps -a -q) to stop all containers
 3. docker system prune -f -a
 4. docker volume prune
