@@ -33,5 +33,5 @@ In case you want to do a hard reset, you want to close and purge all Docker cont
 3. docker system prune -f -a
 4. docker volume prune
 
-If you have Java 10 installed and want to switch to Java 8: Run this command in the terminal
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+If you have Java 10 installed and want to switch to Java 8: Run this command in the terminal . 
+$ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
