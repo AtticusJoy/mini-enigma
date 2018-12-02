@@ -2,7 +2,7 @@ import axios from 'axios/index';
 
 export default class AxiosClient {
 
-    mainPath = 'http://rest:7070';
+    mainPath = 'http://localhost:7070';
 
     clockIn = (keycloak) => {
         const config = {
@@ -32,10 +32,17 @@ export default class AxiosClient {
     getData = (keycloak, updater) => {
         axios.post(this.mainPath + "/getData", {
             username: keycloak.idTokenParsed.preferred_username,
-            role: keycloak.tokenParsed.realm_access.roles.pop()
+            role: this.getRole(keycloak)
         }).then(response => {updater(response.data)
         }).catch(error => {
             alert(error)
         })
+    }
+
+    getRole = (keycloak) => {
+        if(keycloak.hasRealmRole('MANAGER')){
+            return 'MANAGER'
+        }
+        return 'EMPLOYEE'
     }
 }
