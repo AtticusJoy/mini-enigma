@@ -39,11 +39,15 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public List<TimeRecordRow> getTimeRecordsEmployee(String username) {
 
-        int employeeId = employeeRecordRepository.findByUsername(username).getId();
+        if (employeeRecordRepository.findByUsername(username) != null) {
+            int employeeId = employeeRecordRepository.findByUsername(username).getId();
 
-        List<TimeRecord> timeRecords = timeRecordRepository.findByEmployeeId(employeeId);
+            List<TimeRecord> timeRecords = timeRecordRepository.findByEmployeeId(employeeId);
 
-        return convertToTimeRecordRow(timeRecords);
+            return convertToTimeRecordRow(timeRecords);
+        } else {
+            return null;
+        }
     }
 
     @Override

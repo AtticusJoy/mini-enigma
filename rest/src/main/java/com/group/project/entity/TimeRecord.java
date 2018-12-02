@@ -6,7 +6,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "time_action_record")
@@ -45,6 +47,7 @@ public class TimeRecord {
     // clockOut - clockIn
     public void clockUserOut() {
         setClockOut(new Date());
+
     }
 
     public int getId() {

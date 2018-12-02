@@ -35,8 +35,8 @@ time_action_record_id int(186) auto_increment,
 employee_record_id int(11),
 clock_in_timestamp datetime DEFAULT current_timestamp,
 clock_out_timestamp datetime,
-hours_worked varchar(12)
+hours_worked varchar(12),
 PRIMARY KEY (`time_action_record_id`),
-FOREIGN KEY (employee_record_id) REFERENCES recordsdb.EmployeesRecord(employee_record_id)
+FOREIGN KEY (employee_record_id) REFERENCES recordsdb.employees_record(employee_record_id)
 );
 -- Dump completed on 2018-10-26 14:37:52
