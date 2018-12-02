@@ -4,7 +4,6 @@ package com.group.project.rest;
 
 import com.group.project.dto.TimeRecordRow;
 import com.group.project.dto.User;
-import com.group.project.entity.TimeRecord;
 import com.group.project.service.TimeRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,7 @@ public class TimeRecordRestController {
 
         List<TimeRecordRow> timeRecords;
 
-        if (user.getRole().equals("Manager")) {
+        if (user.getRole().equalsIgnoreCase("Manager")) {
             timeRecords = timeRecordService.getTimeRecordsManager();
         } else {
             timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
