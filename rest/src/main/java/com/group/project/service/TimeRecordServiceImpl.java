@@ -1,3 +1,5 @@
+// created by Justin Weston
+
 package com.group.project.service;
 
 import com.group.project.dto.TimeRecordRow;
@@ -90,13 +92,20 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     private List<TimeRecordRow> convertToTimeRecordRow(List<TimeRecord> timeRecords) {
 
         ArrayList<TimeRecordRow> timeRecordRows = new ArrayList<>();
-        DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat date = new SimpleDateFormat("dd-MMM-yyyy");
         DateFormat time = new SimpleDateFormat("hh:mm");
 
         for(TimeRecord record : timeRecords) {
             TimeRecordRow timeRecordRow = new TimeRecordRow();
             timeRecordRow.setId(record.getId());
             timeRecordRow.setUsername(getUsername(record.getEmployeeId()));
+
+            /*
+            timeRecordRow.setDate(date.format(record.getClockIn()));
+            timeRecordRow.setTimeIn(time.format(record.getClockIn()));
+            timeRecordRow.setTimeOut(time.format(record.getClockOut()));
+            timeRecordRow.setHoursWorked(String.valueOf(record.getHoursWorked()));
+            */
 
             if(record.getClockIn() != null) {
                 timeRecordRow.setDate(date.format(record.getClockIn()));
@@ -110,6 +119,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
             if(record.getHoursWorked() != null) {
                 timeRecordRow.setHoursWorked(String.valueOf(record.getHoursWorked()));
             }
+
 
             System.out.println("{\nid: " + timeRecordRow.getId()
                                 + "\nuserName: " + timeRecordRow.getUsername()

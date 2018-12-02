@@ -1,3 +1,5 @@
+// created by Justin Weston
+
 package com.group.project.entity;
 
 import org.springframework.data.annotation.CreatedDate;

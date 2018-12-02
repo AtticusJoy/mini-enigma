@@ -1,3 +1,5 @@
+// created by Justin Weston
+
 package com.group.project.repository;
 
 import com.group.project.entity.TimeRecord;
