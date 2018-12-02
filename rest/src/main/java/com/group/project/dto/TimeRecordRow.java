@@ -1,3 +1,5 @@
+// created by Justin Weston
+
 package com.group.project.dto;
 
 public class TimeRecordRow {
@@ -8,7 +10,7 @@ public class TimeRecordRow {
     private String date;
     private String timeIn;
     private String timeOut;
-    private double hoursWorked;
+    private String hoursWorked;
 
     public int getId() {
         return id;
@@ -50,11 +52,11 @@ public class TimeRecordRow {
         this.timeOut = timeOut;
     }
 
-    public double getHoursWorked() {
+    public String getHoursWorked() {
         return hoursWorked;
     }
 
-    public void setHoursWorked(double hoursWorked) {
+    public void setHoursWorked(String hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
 }
