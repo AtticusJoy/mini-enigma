@@ -46,7 +46,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
             return convertToTimeRecordRow(timeRecords);
         } else {
-            return null;
+            return new ArrayList<>();
         }
     }
 
