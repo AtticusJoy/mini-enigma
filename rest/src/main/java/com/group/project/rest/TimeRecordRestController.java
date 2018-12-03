@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -36,13 +37,11 @@ public class TimeRecordRestController {
 
         if (user.getRole().equalsIgnoreCase("Manager")) {
             timeRecords = timeRecordService.getTimeRecordsManager();
-        } else {
+        } else if (user.getRole().equalsIgnoreCase("Employee")) {
             timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
+        } else {
+            timeRecords = new ArrayList<>();
         }
-
-        // convert List<TimeRecord> into List<TimeRecordRow> then return
-        // consider doing this in service with convert helper method
-        // and Controller is only a traffic cop?
 
         return ResponseEntity.ok(timeRecords);
     }
