@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -85,7 +86,9 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
             // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
             if (timeRecord.getHoursWorked() > maxHoursWorkedPerRecord) {
-                System.out.println("Error, " + timeRecord.getHoursWorked() + " hours worked exceeds maximum allowed " +
+                DecimalFormat df = new DecimalFormat("0.00");
+                String hoursWorked = df.format(timeRecord.getHoursWorked());
+                System.out.println("Error, " + hoursWorked + " hours worked exceeds maximum allowed " +
                         "of " + maxHoursWorkedPerRecord);
             } else {
                 timeRecordRepository.save(timeRecord);
@@ -120,7 +123,9 @@ public class TimeRecordServiceImpl implements TimeRecordService {
                 timeRecordRow.setTimeOut(time.format(record.getClockOut()));
             }
             if(record.getHoursWorked() != null) {
-                timeRecordRow.setHoursWorked(String.valueOf(record.getHoursWorked()));
+                DecimalFormat df = new DecimalFormat("0.00");
+                String hoursWorked = df.format(record.getHoursWorked());
+                timeRecordRow.setHoursWorked(hoursWorked);
             }
 
 
