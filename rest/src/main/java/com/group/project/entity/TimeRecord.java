@@ -43,21 +43,6 @@ public class TimeRecord {
         this.employeeId = employeeId;
     }
 
-    public void clockUserOut() {
-        setClockOut(new Date());
-
-        long duration = clockOut.getTime() - clockIn.getTime();
-        hoursWorked = (double)duration / MILLISECONDS_PER_HOUR;
-
-        DecimalFormat df = new DecimalFormat("0.00");
-        String s = df.format(hoursWorked);
-
-        System.out.println("Milliseconds duration: " + duration);
-        System.out.println("Clock-in: " + clockIn);
-        System.out.println("Clock-out: " + clockOut);
-        System.out.println("Hours worked: " + s);
-    }
-
     public int getId() {
         return id;
     }
@@ -79,7 +64,11 @@ public class TimeRecord {
     }
 
     public void setClockIn(Date clockIn) {
-        this.clockIn = clockIn;
+        if(clockIn.after(new Date())){
+            System.out.println("Error, clock in time cannot be in the future!");
+        } else {
+            this.clockIn = clockIn;
+        }
     }
 
     public Date getClockOut() {
@@ -87,7 +76,11 @@ public class TimeRecord {
     }
 
     public void setClockOut(Date clockOut) {
-        this.clockOut = clockOut;
+        if(clockOut.before(clockIn)){
+            System.out.println("Error, clock out time cannot be before clock in time!");
+        } else {
+            this.clockOut = clockOut;
+        }
     }
 
     public Double getHoursWorked() {
@@ -96,5 +89,26 @@ public class TimeRecord {
 
     public void setHoursWorked(Double hoursWorked) {
         this.hoursWorked = hoursWorked;
+    }
+
+    public void clockUserOut() {
+        setClockOut(new Date());
+        hoursWorked = calculateHoursWorked();
+
+        /*
+        DecimalFormat df = new DecimalFormat("0.00");
+        String s = df.format(hoursWorked);
+
+        System.out.println("Milliseconds duration: " + duration);
+        System.out.println("Clock-in: " + clockIn);
+        System.out.println("Clock-out: " + clockOut);
+        System.out.println("Hours worked: " + s);
+        */
+    }
+
+    private double calculateHoursWorked() {
+        long duration = clockOut.getTime() - clockIn.getTime();
+
+        return hoursWorked = (double)duration / MILLISECONDS_PER_HOUR;
     }
 }
