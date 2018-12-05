@@ -8,22 +8,28 @@ import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TimeRecordServiceImpl implements TimeRecordService {
+
+    private final double maxHoursWorkedPerRecord;
 
     private TimeRecordRepository timeRecordRepository;
     private EmployeeRecordRepository employeeRecordRepository;
 
     @Autowired
-    public TimeRecordServiceImpl(TimeRecordRepository timeRecordRepository,
+    public TimeRecordServiceImpl(@Value("${maxHoursWorkedPerRecord}") double maxHoursWorkedPerRecord, TimeRecordRepository timeRecordRepository,
                                  EmployeeRecordRepository employeeRecordRepository) {
+        this.maxHoursWorkedPerRecord = maxHoursWorkedPerRecord;
         this.timeRecordRepository = timeRecordRepository;
         this.employeeRecordRepository = employeeRecordRepository;
     }
@@ -33,6 +39,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         List<TimeRecord> timeRecords = timeRecordRepository.findAll();
 
+        System.out.println("Max Time Worked: " + maxHoursWorkedPerRecord);
         return convertToTimeRecordRow(timeRecords);
     }
 
@@ -57,7 +64,6 @@ public class TimeRecordServiceImpl implements TimeRecordService {
         if (employee == null) {
             employee = saveNewEmployee(username);
         }
-        //System.out.println(username);
         timeRecordRepository.save(new TimeRecord(employee.getId()));
     }
 
@@ -68,7 +74,6 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         // gets most recent record for the employeeId
         TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
-        System.out.println("Most recent record id: " + timeRecord.getId());
 
         // check if timeRecord has a clock out time already
         if (timeRecord.getClockOut() != null) {
@@ -79,11 +84,12 @@ public class TimeRecordServiceImpl implements TimeRecordService {
             timeRecord.clockUserOut();
 
             // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
-            // if (timeRecord.getHoursWorked > maxTimeWorkedPerEntry) {
-            //    // error if true
-            // } else {
-
-            timeRecordRepository.save(timeRecord);
+            if (timeRecord.getHoursWorked() > maxHoursWorkedPerRecord) {
+                System.out.println("Error, " + timeRecord.getHoursWorked() + " hours worked exceeds maximum allowed " +
+                        "of " + maxHoursWorkedPerRecord);
+            } else {
+                timeRecordRepository.save(timeRecord);
+            }
         }
     }
 
@@ -97,19 +103,12 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         ArrayList<TimeRecordRow> timeRecordRows = new ArrayList<>();
         DateFormat date = new SimpleDateFormat("dd-MMM-yyyy");
-        DateFormat time = new SimpleDateFormat("hh:mm");
+        DateFormat time = new SimpleDateFormat("HH:mm");
 
         for(TimeRecord record : timeRecords) {
             TimeRecordRow timeRecordRow = new TimeRecordRow();
             timeRecordRow.setId(record.getId());
             timeRecordRow.setUsername(getUsername(record.getEmployeeId()));
-
-            /*
-            timeRecordRow.setDate(date.format(record.getClockIn()));
-            timeRecordRow.setTimeIn(time.format(record.getClockIn()));
-            timeRecordRow.setTimeOut(time.format(record.getClockOut()));
-            timeRecordRow.setHoursWorked(String.valueOf(record.getHoursWorked()));
-            */
 
             if(record.getClockIn() != null) {
                 timeRecordRow.setDate(date.format(record.getClockIn()));
@@ -118,7 +117,7 @@ public class TimeRecordServiceImpl implements TimeRecordService {
                 timeRecordRow.setTimeIn(time.format(record.getClockIn()));
             }
             if(record.getClockOut() != null) {
-                    timeRecordRow.setTimeOut(time.format(record.getClockOut()));
+                timeRecordRow.setTimeOut(time.format(record.getClockOut()));
             }
             if(record.getHoursWorked() != null) {
                 timeRecordRow.setHoursWorked(String.valueOf(record.getHoursWorked()));

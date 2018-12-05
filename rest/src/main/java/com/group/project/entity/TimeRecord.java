@@ -6,9 +6,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.Duration;
+import java.text.DecimalFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "time_action_record")
@@ -16,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class TimeRecord {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue
     @Column(name = "time_action_record_id")
     private int id;
@@ -36,6 +34,8 @@ public class TimeRecord {
     @Column(name = "hours_worked")
     private Double hoursWorked;
 
+    private final static int MILLISECONDS_PER_HOUR = 3600000;
+
     public TimeRecord() {
     }
 
@@ -43,11 +43,19 @@ public class TimeRecord {
         this.employeeId = employeeId;
     }
 
-    // set clockOut to current time and calculate hoursWorked
-    // clockOut - clockIn
     public void clockUserOut() {
         setClockOut(new Date());
 
+        long duration = clockOut.getTime() - clockIn.getTime();
+        hoursWorked = (double)duration / MILLISECONDS_PER_HOUR;
+
+        DecimalFormat df = new DecimalFormat("0.00");
+        String s = df.format(hoursWorked);
+
+        System.out.println("Milliseconds duration: " + duration);
+        System.out.println("Clock-in: " + clockIn);
+        System.out.println("Clock-out: " + clockOut);
+        System.out.println("Hours worked: " + s);
     }
 
     public int getId() {
