@@ -40,7 +40,7 @@ public class TimeRecordRestController {
         } else if (user.getRole().equalsIgnoreCase("Employee")) {
             timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
         } else {
-            timeRecords = new ArrayList<>();
+            throw new InvalidTimeException("Role " + user.getRole() + " does not exist.");
         }
 
         return ResponseEntity.ok(timeRecords);
