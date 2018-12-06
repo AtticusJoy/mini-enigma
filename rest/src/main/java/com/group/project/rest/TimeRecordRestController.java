@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -31,38 +30,36 @@ public class TimeRecordRestController {
     }
 
     @PostMapping(path = "/getData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List> listTimeRecords(@RequestBody User user) {
+    public List<TimeRecordRow> listTimeRecords(@RequestBody User user) {
 
         List<TimeRecordRow> timeRecords;
 
         if (user.getRole().equalsIgnoreCase("Manager")) {
-            timeRecords = timeRecordService.getTimeRecordsManager();
+            timeRecords = timeRecordService.getTimeRecordsManager(user.getUsername());
         } else if (user.getRole().equalsIgnoreCase("Employee")) {
             timeRecords = timeRecordService.getTimeRecordsEmployee(user.getUsername());
         } else {
-            throw new InvalidTimeException("Role " + user.getRole() + " does not exist.");
+            throw new InvalidTimeException(user.getRole() + " is not a valid Role.");
         }
 
-        return ResponseEntity.ok(timeRecords);
+        return timeRecords;
     }
 
     @PostMapping (path = "/clockIn", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockIn(@RequestBody String username) {
 
         timeRecordService.saveClockIn(username);
-        String status = "Successfully inserted new time record!";
+        String response = "Successfully clocked " + username + " in!";
 
-        // To-do: Either check status using conditional, or always return success if no exception. If exception return that
-        return ResponseEntity.status(HttpStatus.OK).body(status);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping (path = "/clockOut", consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addClockOut(@RequestBody String username) {
 
         timeRecordService.saveClockOut(username);
-        String status = "Successfully clocked user out!";
+        String response = "Successfully clocked " + username + " out!";
 
-        // To-do: Either check status using conditional, or always return success if no exception. If exception return that
-        return ResponseEntity.status(HttpStatus.OK).body(status);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

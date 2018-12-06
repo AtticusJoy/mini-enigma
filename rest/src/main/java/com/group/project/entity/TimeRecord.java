@@ -7,7 +7,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.text.DecimalFormat;
 import java.util.Date;
 
 @Entity
@@ -66,7 +65,6 @@ public class TimeRecord {
 
     public void setClockIn(Date clockIn) {
         if(clockIn.after(new Date())){
-            System.out.println("Error, clock in time cannot be in the future!");
             throw new InvalidTimeException("Error, clock in time cannot be in the future!");
         } else {
             this.clockIn = clockIn;
@@ -79,7 +77,6 @@ public class TimeRecord {
 
     private void setClockOut(Date clockOut) {
         if(clockOut.before(clockIn)){
-            System.out.println("Error, clock out time cannot occur before clock in time!");
             throw new InvalidTimeException("Error, clock out time cannot occur before clock in time!");
         } else {
             this.clockOut = clockOut;
@@ -97,16 +94,6 @@ public class TimeRecord {
     public void clockUserOut() {
         setClockOut(new Date());
         hoursWorked = calculateHoursWorked();
-
-        /*
-        DecimalFormat df = new DecimalFormat("0.00");
-        String s = df.format(hoursWorked);
-
-        System.out.println("Milliseconds duration: " + duration);
-        System.out.println("Clock-in: " + clockIn);
-        System.out.println("Clock-out: " + clockOut);
-        System.out.println("Hours worked: " + s);
-        */
     }
 
     private double calculateHoursWorked() {
