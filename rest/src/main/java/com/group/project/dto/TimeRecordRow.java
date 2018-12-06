@@ -12,6 +12,16 @@ public class TimeRecordRow {
     private String timeOut;
     private String hoursWorked;
 
+    public TimeRecordRow () {
+        /*
+        username = "";
+        date = "";
+        timeIn = "";
+        timeOut = "";
+        hoursWorked = "";
+        */
+    }
+
     public int getId() {
         return id;
     }

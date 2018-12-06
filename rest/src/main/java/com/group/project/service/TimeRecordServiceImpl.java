@@ -8,6 +8,7 @@ import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
 import com.group.project.rest.InvalidTimeException;
+import com.group.project.rest.TimeResourceNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -72,32 +73,31 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public void saveClockOut(String username) {
 
-        //if (employeeRecordRepository.findByUsername(username) != null) {
-            int employeeId = employeeRecordRepository.findByUsername(username).getId();
+        int employeeId = employeeRecordRepository.findByUsername(username).getId();
 
-            // gets most recent record for the employeeId
-            TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
+        // gets most recent record for the employeeId
+        TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
 
-            // check if timeRecord has a clock out time already
-            if (timeRecord == null) {
-                throw new InvalidTimeException("Error, no clock in entry exists!");
-            } else if (timeRecord.getClockOut() != null) {
-                throw new InvalidTimeException("Error, clock out already exists on most recent time record!");
+        // check if timeRecord has a clock out time already
+        if (timeRecord == null) {
+            throw new TimeResourceNotFound("Error, no clock in entries exists!");
+        } else if (timeRecord.getClockOut() != null) {
+            throw new TimeResourceNotFound("Error, user has already clocked out on most recent time record!");
+        } else {
+
+            // Will set current time as clock out time and calculate hoursWorked
+            timeRecord.clockUserOut();
+
+            // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
+            if (timeRecord.getHoursWorked() > maxHoursWorkedPerRecord) {
+                DecimalFormat df = new DecimalFormat("0.00");
+                String hoursWorked = df.format(timeRecord.getHoursWorked());
+                throw new TimeResourceNotFound("Error, " + hoursWorked + " hours worked exceeds maximum allowed " +
+                        "of " + maxHoursWorkedPerRecord);
             } else {
-
-                // Will set current time as clock out time and calculate hoursWorked
-                timeRecord.clockUserOut();
-
-                // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
-                if (timeRecord.getHoursWorked() > maxHoursWorkedPerRecord) {
-                    DecimalFormat df = new DecimalFormat("0.00");
-                    String hoursWorked = df.format(timeRecord.getHoursWorked());
-                    throw new InvalidTimeException("Error, " + hoursWorked + " hours worked exceeds maximum allowed " +
-                            "of " + maxHoursWorkedPerRecord);
-                } else {
-                    timeRecordRepository.save(timeRecord);
-                }
+                timeRecordRepository.save(timeRecord);
             }
+        }
     }
 
     @Override
