@@ -7,7 +7,6 @@ import com.group.project.entity.EmployeeRecord;
 import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
-import com.group.project.rest.InvalidTimeException;
 import com.group.project.rest.TimeResourceNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

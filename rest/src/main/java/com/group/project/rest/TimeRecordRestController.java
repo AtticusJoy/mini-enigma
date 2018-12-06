@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin
@@ -42,6 +43,7 @@ public class TimeRecordRestController {
             throw new TimeResourceNotFound(user.getRole() + " is not a valid Role.");
         }
 
+        Collections.sort(timeRecords);
         return timeRecords;
     }
 
