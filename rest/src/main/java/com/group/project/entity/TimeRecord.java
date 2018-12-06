@@ -2,6 +2,7 @@
 
 package com.group.project.entity;
 
+import com.group.project.rest.InvalidTimeException;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -66,6 +67,7 @@ public class TimeRecord {
     public void setClockIn(Date clockIn) {
         if(clockIn.after(new Date())){
             System.out.println("Error, clock in time cannot be in the future!");
+            throw new InvalidTimeException("Error, clock in time cannot be in the future!");
         } else {
             this.clockIn = clockIn;
         }
@@ -75,9 +77,10 @@ public class TimeRecord {
         return clockOut;
     }
 
-    public void setClockOut(Date clockOut) {
+    private void setClockOut(Date clockOut) {
         if(clockOut.before(clockIn)){
-            System.out.println("Error, clock out time cannot be before clock in time!");
+            System.out.println("Error, clock out time cannot occur before clock in time!");
+            throw new InvalidTimeException("Error, clock out time cannot occur before clock in time!");
         } else {
             this.clockOut = clockOut;
         }

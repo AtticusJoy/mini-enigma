@@ -7,6 +7,7 @@ import com.group.project.entity.EmployeeRecord;
 import com.group.project.entity.TimeRecord;
 import com.group.project.repository.EmployeeRecordRepository;
 import com.group.project.repository.TimeRecordRepository;
+import com.group.project.rest.InvalidTimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TimeRecordServiceImpl implements TimeRecordService {
@@ -40,7 +39,6 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
         List<TimeRecord> timeRecords = timeRecordRepository.findAll();
 
-        System.out.println("Max Time Worked: " + maxHoursWorkedPerRecord);
         return convertToTimeRecordRow(timeRecords);
     }
 
@@ -71,28 +69,39 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     @Override
     public void saveClockOut(String username) {
 
-        int employeeId = employeeRecordRepository.findByUsername(username).getId();
+        if (employeeRecordRepository.findByUsername(username) != null) {
+            int employeeId = employeeRecordRepository.findByUsername(username).getId();
 
-        // gets most recent record for the employeeId
-        TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
+            // gets most recent record for the employeeId
+            TimeRecord timeRecord = timeRecordRepository.findTopByEmployeeIdOrderByIdDesc(employeeId);
 
-        // check if timeRecord has a clock out time already
-        if (timeRecord.getClockOut() != null) {
-            System.out.println("Error, clock out already exists on most recent time record!");
-        } else {
 
-            // Will set current time as clock out time and calculate hoursWorked
-            timeRecord.clockUserOut();
-
-            // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
-            if (timeRecord.getHoursWorked() > maxHoursWorkedPerRecord) {
-                DecimalFormat df = new DecimalFormat("0.00");
-                String hoursWorked = df.format(timeRecord.getHoursWorked());
-                System.out.println("Error, " + hoursWorked + " hours worked exceeds maximum allowed " +
-                        "of " + maxHoursWorkedPerRecord);
+            // check if timeRecord has a clock out time already
+            if (timeRecord == null) {
+                System.out.println("Error, no clock in entry exists!");
+                throw new InvalidTimeException("Error, no clock in entry exists!");
+            } else if (timeRecord.getClockOut() != null) {
+                System.out.println("Error, clock out already exists on most recent time record!");
+                throw new InvalidTimeException("Error, clock out already exists on most recent time record!");
             } else {
-                timeRecordRepository.save(timeRecord);
+
+                // Will set current time as clock out time and calculate hoursWorked
+                timeRecord.clockUserOut();
+
+                // check if hoursWorked is > ${maxTimeWorkedPerEntry} (defined in application.properties)
+                if (timeRecord.getHoursWorked() > maxHoursWorkedPerRecord) {
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    String hoursWorked = df.format(timeRecord.getHoursWorked());
+                    System.out.println("Error, " + hoursWorked + " hours worked exceeds maximum allowed " +
+                            "of " + maxHoursWorkedPerRecord);
+                    throw new InvalidTimeException("Error, " + hoursWorked + " hours worked exceeds maximum allowed " +
+                            "of " + maxHoursWorkedPerRecord);
+                } else {
+                    timeRecordRepository.save(timeRecord);
+                }
             }
+        } else {
+            System.out.println("Error employee does not exist!");
         }
     }
 
@@ -134,7 +143,8 @@ public class TimeRecordServiceImpl implements TimeRecordService {
                                 + "\ndate: " + timeRecordRow.getDate()
                                 + "\ntimeIn: " + timeRecordRow.getTimeIn()
                                 + "\ntimeOut: " + timeRecordRow.getTimeOut()
-                                + "\nhoursWorked: " + timeRecordRow.getHoursWorked());
+                                + "\nhoursWorked: " + timeRecordRow.getHoursWorked()
+                                + "},");
 
             timeRecordRows.add(timeRecordRow);
         }
@@ -144,7 +154,6 @@ public class TimeRecordServiceImpl implements TimeRecordService {
 
     private String getUsername(int employeeId) {
         EmployeeRecord e = employeeRecordRepository.findOne(employeeId);
-        System.out.println(e.getUsername());
 
         return  e.getUsername();
     }
