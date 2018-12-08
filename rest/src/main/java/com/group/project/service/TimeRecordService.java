@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TimeRecordService {
 
-    List<TimeRecordRow> getTimeRecordsManager();
+    List<TimeRecordRow> getTimeRecordsManager(String username);
     List<TimeRecordRow> getTimeRecordsEmployee(String username);
     void saveClockIn(String username);
     void saveClockOut(String username);
