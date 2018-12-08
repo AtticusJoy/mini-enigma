@@ -1,3 +1,4 @@
+//created by petar.petrov, updated by Abby Turner
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
@@ -7,7 +8,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import AxiosClient from "../utils/AxiosClient";
 
 const styles = theme => ({
     root: {
@@ -22,18 +22,9 @@ const styles = theme => ({
 
 class DataTable extends Component {
 
-    state = {
-        data: []
-    };
-
-    componentWillMount = () => {
-        new AxiosClient().getData(this.props.keycloak, (data) => {
-            this.setState({data: data})
-        })
-    };
-
     render() {
-        console.log(this.state.data);
+        console.log("This is the data in the DataTable:")
+        console.log(this.props.data);
         const {classes} = this.props;
         return (
             <div>
@@ -49,7 +40,7 @@ class DataTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.data.map(row => {
+                            {this.props.data.map(row => {
                                 return (
                                     <TableRow key={row.id}>
                                         <TableCell>{row.username}</TableCell>

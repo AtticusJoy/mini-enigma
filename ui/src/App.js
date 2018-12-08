@@ -1,4 +1,4 @@
-//created by petar.petrov
+//created by petar.petrov, updated by Cody Penta and Abby Turner
 import React, {Component} from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -14,7 +14,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            keycloak: this.props.keycloak
+            keycloak: this.props.keycloak,
+            data: []
         }
     }
 
@@ -23,18 +24,28 @@ class App extends Component {
     };
 
     clockIn = () => {
-        new AxiosClient().clockIn(this.props.keycloak)
+        new AxiosClient().clockIn(this.props.keycloak, (data) => {
+            this.setState({data: data})
+        })
     };
 
     clockOut = () => {
-        new AxiosClient().clockOut(this.props.keycloak)
+        new AxiosClient().clockOut(this.props.keycloak, (data) => {
+            this.setState({data: data})
+        })
+    };
+
+    componentWillMount = () => {
+        new AxiosClient().getData(this.props.keycloak, (data) => {
+            this.setState({data: data})
+        })
     };
 
 
     render() {
         return (
             <div>
-                <Typography variant="h3" color="primary" style={{display:"inline"}}>
+                <Typography variant="h3" color="primary" style={{display:"inline", marginLeft:"30px", marginTop:"10px"}}>
                     Chronos
                     <img src={logo} alt="logo" width="50px"/>
                 </Typography>
@@ -81,7 +92,7 @@ class App extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <div>
-                                <DataTable keycloak={this.props.keycloak}/>
+                                <DataTable keycloak={this.props.keycloak} data={this.state.data}/>
                                 </div>
                             </Grid>
                         </Grid>

@@ -1,31 +1,34 @@
+//created by petar.petrov, updated by Abby Turner
 import axios from 'axios/index';
 
 export default class AxiosClient {
 
     mainPath = 'http://localhost:7070';
 
-    clockIn = (keycloak) => {
+    clockIn = (keycloak, updater) => {
         const config = {
             headers: {'Content-Type': 'text/plain'}
         };
         console.log(keycloak.idTokenParsed.preferred_username);
         axios.post(this.mainPath + "/clockIn", keycloak.idTokenParsed.preferred_username, config
         ).then(response => {
-            alert(response.data)
+            alert(response.data);
+            this.getData(keycloak, updater);
         }).catch(error => {
-            alert("Unexpected error: " + error.data)
+            alert(error.response.data.message)
         })
     };
 
-    clockOut = (keycloak) => {
+    clockOut = (keycloak, updater) => {
         const config = {
             headers: {'Content-Type': 'text/plain'}
         };
         axios.post(this.mainPath + "/clockOut", keycloak.idTokenParsed.preferred_username, config
         ).then(response => {
-            alert(response.data)
+            alert(response.data);
+            this.getData(keycloak, updater);
         }).catch(error => {
-            alert("Unexpected error: " + error.data)
+            alert(error.response.data.message)
         })
     };
 
@@ -35,7 +38,7 @@ export default class AxiosClient {
             role: this.getRole(keycloak)
         }).then(response => {updater(response.data)
         }).catch(error => {
-            alert(error)
+            alert(error.response.data.message)
         })
     }
 
