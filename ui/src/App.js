@@ -8,10 +8,6 @@ import AxiosClient from "./utils/AxiosClient";
 
 class App extends Component {
 
-    state = {
-        keycloak: this.props.keycloak
-    };
-
     logout = () => {
         this.props.keycloak.logout();
     };
