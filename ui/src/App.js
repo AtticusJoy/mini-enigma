@@ -5,11 +5,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import DataTable from './components/Table';
 import AxiosClient from "./utils/AxiosClient";
+import Typography from "@material-ui/core/Typography/Typography";
+import Grid from "@material-ui/core/Grid/Grid";
+import logo from './images/Cronos_logo.png';
 
 class App extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             keycloak: this.props.keycloak
         }
