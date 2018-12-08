@@ -2,7 +2,9 @@
 
 package com.group.project.dto;
 
-public class TimeRecordRow {
+import java.util.Comparator;
+
+public class TimeRecordRow implements Comparable<TimeRecordRow> {
 
     private int id;
     private String username;
@@ -11,6 +13,16 @@ public class TimeRecordRow {
     private String timeIn;
     private String timeOut;
     private String hoursWorked;
+
+    public TimeRecordRow () {
+        /*
+        username = "";
+        date = "";
+        timeIn = "";
+        timeOut = "";
+        hoursWorked = "";
+        */
+    }
 
     public int getId() {
         return id;
@@ -58,5 +70,14 @@ public class TimeRecordRow {
 
     public void setHoursWorked(String hoursWorked) {
         this.hoursWorked = hoursWorked;
+    }
+
+    // Compares based on username, then date of clock in, then time in
+    @Override
+    public int compareTo(TimeRecordRow o) {
+        return Comparator.comparing(TimeRecordRow::getUsername)
+                .thenComparing(TimeRecordRow::getDate)
+                .thenComparing(TimeRecordRow::getTimeIn)
+                .compare(this, o);
     }
 }

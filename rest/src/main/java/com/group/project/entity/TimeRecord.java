@@ -2,13 +2,12 @@
 
 package com.group.project.entity;
 
+import com.group.project.rest.InvalidTimeException;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.Duration;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "time_action_record")
@@ -16,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class TimeRecord {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue
     @Column(name = "time_action_record_id")
     private int id;
@@ -36,18 +34,13 @@ public class TimeRecord {
     @Column(name = "hours_worked")
     private Double hoursWorked;
 
+    private final static int MILLISECONDS_PER_HOUR = 3600000;
+
     public TimeRecord() {
     }
 
     public TimeRecord(int employeeId) {
         this.employeeId = employeeId;
-    }
-
-    // set clockOut to current time and calculate hoursWorked
-    // clockOut - clockIn
-    public void clockUserOut() {
-        setClockOut(new Date());
-
     }
 
     public int getId() {
@@ -71,15 +64,23 @@ public class TimeRecord {
     }
 
     public void setClockIn(Date clockIn) {
-        this.clockIn = clockIn;
+        if(clockIn.after(new Date())){
+            throw new InvalidTimeException("Error, clock in time cannot be in the future!");
+        } else {
+            this.clockIn = clockIn;
+        }
     }
 
     public Date getClockOut() {
         return clockOut;
     }
 
-    public void setClockOut(Date clockOut) {
-        this.clockOut = clockOut;
+    private void setClockOut(Date clockOut) {
+        if(clockOut.before(clockIn)){
+            throw new InvalidTimeException("Error, clock out time cannot occur before clock in time!");
+        } else {
+            this.clockOut = clockOut;
+        }
     }
 
     public Double getHoursWorked() {
@@ -88,5 +89,16 @@ public class TimeRecord {
 
     public void setHoursWorked(Double hoursWorked) {
         this.hoursWorked = hoursWorked;
+    }
+
+    public void clockUserOut() {
+        setClockOut(new Date());
+        hoursWorked = calculateHoursWorked();
+    }
+
+    private double calculateHoursWorked() {
+        long duration = clockOut.getTime() - clockIn.getTime();
+
+        return hoursWorked = (double)duration / MILLISECONDS_PER_HOUR;
     }
 }

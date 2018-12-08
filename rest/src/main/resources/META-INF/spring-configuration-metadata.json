@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "maxHoursWorkedPerRecord",
+      "type": "java.lang.Double"
+    }
+  ]
+}
