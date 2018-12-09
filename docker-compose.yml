@@ -17,6 +17,7 @@ services:
     ports:
       - "7070:7070"
     command: ["bash", "init.sh"]
+    restart: always
   ui:
     build: ./ui
     image: ui
@@ -29,6 +30,7 @@ services:
     environment:
      - NODE_ENV=development
      - CHOKIDAR_USEPOLLING=true
+    restart: always
   postgres:
     image: postgres
     ports:
