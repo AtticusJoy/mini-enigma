@@ -46,7 +46,7 @@ class App extends Component {
         return (
             <div>
                 <Typography variant="h3" color="primary" style={{display:"inline", marginLeft:"30px", marginTop:"10px"}}>
-                    Chronos
+                    Cronos
                     <img src={logo} alt="logo" width="50px"/>
                 </Typography>
                 <div style={{
