@@ -7,7 +7,7 @@ import App from './App';
 import Keycloak from 'keycloak-js';
 
 const keycloakJson = {
-    "realm": "demo",
+    "realm": "Cronos",
     "clientId": "frontend-app",
     "url": "http://localhost:8080/auth",
     "ssl-required": "external",

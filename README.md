@@ -15,8 +15,8 @@ Once Everything Is initialized in Docker, go to "Setting up Keycloak step"
 Setting up Keycloak
 
 1.	Go to localhost:8080
-2.	Username: cmsc495 Password: cmsc495
-3.	Upper left corner -> click on Master -> Add realm -> Name: demo -> Click Create
+2.	Username: CronosAdmin Password: cmsc495
+3.	Upper left corner -> click on Master -> Add realm -> Name: Cronos -> Click Create
 4.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Save
 5.  Upper left corner -> Clients -> frontend-app -> valid Redirect URIs -> http://localhost:8080/* -> Click "+" -> http://localhost:3000/* -> Click "+" -> Scroll down to Web Origin -> Re-enter previous two routes WITHOUT "/*"
 6.	Upper left corner -> Roles -> Add Role -> Role Name: EMPLOYEE -> Save

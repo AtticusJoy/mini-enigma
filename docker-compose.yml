@@ -47,7 +47,7 @@ services:
       - postgres
     environment:
       - DB_VENDOR=POSTGRES
-      - KEYCLOAK_USER=cmsc495
+      - KEYCLOAK_USER=CronosAdmin
       - KEYCLOAK_PASSWORD=cmsc495
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=password
