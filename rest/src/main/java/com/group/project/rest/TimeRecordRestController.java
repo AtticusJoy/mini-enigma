@@ -64,4 +64,8 @@ public class TimeRecordRestController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    void setTimeRecordService(TimeRecordService timeRecordService){
+        this.timeRecordService = timeRecordService;
+    }
 }
