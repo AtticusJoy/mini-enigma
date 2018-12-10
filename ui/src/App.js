@@ -86,7 +86,7 @@ class App extends Component {
                                     <span></span>
                                 </Grid>
                                 <Grid item xs={3}>
-                                    <RaisedButton label="Logout" onClick={this.logout}/>
+                                    <RaisedButton label={"Logout - " + this.props.keycloak.idTokenParsed.preferred_username} onClick={this.logout}/>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12}>
