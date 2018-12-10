@@ -5,13 +5,16 @@ public class TimeRecordErrorResponse {
     private int status;
     private String message;
 
-
     public TimeRecordErrorResponse() {
     }
 
     TimeRecordErrorResponse(int status, String message) {
         this.status = status;
         this.message = message;
+    }
+
+    TimeRecordErrorResponse(int status, StackTraceElement[] stackTraceElements) {
+        this.status = status;
     }
 
     public int getStatus() {

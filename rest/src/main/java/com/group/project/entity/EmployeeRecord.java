@@ -17,8 +17,7 @@ public class EmployeeRecord {
     @Column(name = "employee_username")
     private String username;
 
-    public EmployeeRecord() {
-    }
+    public EmployeeRecord() { }
 
     public EmployeeRecord(String username) {
         this.username = username;
@@ -28,7 +27,7 @@ public class EmployeeRecord {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

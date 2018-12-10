@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,5 +61,12 @@ public class TimeRecordRestController {
         String response = "Successfully clocked " + username + " out!";
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping (path = "/modifyTime", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> modifyTimeRecord(@RequestBody TimeRecordRow timeRecordRow) throws ParseException {
+        timeRecordService.updateTimeRecord(timeRecordRow);
+
+        return new ResponseEntity<>("Successfully updated record with id: " + timeRecordRow.getId(), HttpStatus.OK);
     }
 }

@@ -36,8 +36,7 @@ public class TimeRecord {
 
     private final static int MILLISECONDS_PER_HOUR = 3600000;
 
-    public TimeRecord() {
-    }
+    public TimeRecord() { }
 
     public TimeRecord(int employeeId) {
         this.employeeId = employeeId;
@@ -47,9 +46,7 @@ public class TimeRecord {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     public int getEmployeeId() {
         return employeeId;
@@ -75,11 +72,12 @@ public class TimeRecord {
         return clockOut;
     }
 
-    private void setClockOut(Date clockOut) {
+    public void setClockOut(Date clockOut) {
         if(clockOut.before(clockIn)){
             throw new InvalidTimeException("Error, clock out time cannot occur before clock in time!");
         } else {
             this.clockOut = clockOut;
+            hoursWorked = calculateHoursWorked();
         }
     }
 
@@ -89,11 +87,6 @@ public class TimeRecord {
 
     public void setHoursWorked(Double hoursWorked) {
         this.hoursWorked = hoursWorked;
-    }
-
-    public void clockUserOut() {
-        setClockOut(new Date());
-        hoursWorked = calculateHoursWorked();
     }
 
     private double calculateHoursWorked() {

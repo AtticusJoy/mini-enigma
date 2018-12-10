@@ -14,15 +14,7 @@ public class TimeRecordRow implements Comparable<TimeRecordRow> {
     private String timeOut;
     private String hoursWorked;
 
-    public TimeRecordRow () {
-        /*
-        username = "";
-        date = "";
-        timeIn = "";
-        timeOut = "";
-        hoursWorked = "";
-        */
-    }
+    public TimeRecordRow () { }
 
     public int getId() {
         return id;
@@ -64,9 +56,7 @@ public class TimeRecordRow implements Comparable<TimeRecordRow> {
         this.timeOut = timeOut;
     }
 
-    public String getHoursWorked() {
-        return hoursWorked;
-    }
+    public String getHoursWorked() { return hoursWorked; }
 
     public void setHoursWorked(String hoursWorked) {
         this.hoursWorked = hoursWorked;
