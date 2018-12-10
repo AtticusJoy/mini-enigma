@@ -1,4 +1,10 @@
 //created by petar.petrov, updated by Abby Turner
+
+/* 
+ * This file contains all the description of style, form, and action
+ * of the Child react component, DataTable.
+ */
+
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
@@ -9,6 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+// Styling for the DataTable component
 const styles = theme => ({
     root: {
         width: '100%',
@@ -19,9 +26,10 @@ const styles = theme => ({
         minWidth: 700,
     },
 });
-
+// Child Component of App, which displays the data passed to it from the parent via props
 class DataTable extends Component {
 
+    // The render method is called by React whenever the data model updates
     render() {
         console.log("This is the data in the DataTable:")
         console.log(this.props.data);
