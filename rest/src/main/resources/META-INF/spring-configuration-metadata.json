@@ -3,6 +3,10 @@
     {
       "name": "maxHoursWorkedPerRecord",
       "type": "java.lang.Double"
+    },
+    {
+      "name": "localTimeZone",
+      "type": "java.lang.String"
     }
   ]
 }

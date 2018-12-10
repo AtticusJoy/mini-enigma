@@ -16,20 +16,26 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Service
 public class TimeRecordServiceImpl implements TimeRecordService {
 
     private final double maxHoursWorkedPerRecord;
+    private final String localTimeZone;
 
     private TimeRecordRepository timeRecordRepository;
     private EmployeeRecordRepository employeeRecordRepository;
 
     @Autowired
-    public TimeRecordServiceImpl(@Value("${maxHoursWorkedPerRecord}") double maxHoursWorkedPerRecord, TimeRecordRepository timeRecordRepository,
+    public TimeRecordServiceImpl(@Value("${maxHoursWorkedPerRecord}") double maxHoursWorkedPerRecord,
+                                 @Value("${localTimeZone}") String localTimeZone,
+                                 TimeRecordRepository timeRecordRepository,
                                  EmployeeRecordRepository employeeRecordRepository) {
         this.maxHoursWorkedPerRecord = maxHoursWorkedPerRecord;
+        this.localTimeZone = localTimeZone;
         this.timeRecordRepository = timeRecordRepository;
         this.employeeRecordRepository = employeeRecordRepository;
     }
@@ -100,6 +106,35 @@ public class TimeRecordServiceImpl implements TimeRecordService {
     }
 
     @Override
+    public void updateTimeRecord(TimeRecordRow timeRecordRow) {
+    /*
+        TimeRecord timeRecord = new TimeRecord();
+
+        // get employeeId
+        int employeeId = employeeRecordRepository.findByUsername(timeRecordRow.getUsername()).getId();
+
+        // map to TimeRecord
+        timeRecord.setId(timeRecordRow.getId());
+        timeRecord.setEmployeeId(employeeId);
+
+        // Combine and save to clockIn
+        timeRecordRow.getTimeIn();
+        timeRecordRow.getDate();
+        Date clockIn = new Date();
+        timeRecord.setClockIn(clockIn);
+
+        // Need to combine with getDate and determine if it's same date as TimeIn
+        timeRecordRow.getTimeOut();
+        // timeRecord.setClockOut(clockOut);
+
+        timeRecord.setHoursWorked(Double.valueOf(timeRecordRow.getHoursWorked()));
+
+        // saveOrUpdate
+        timeRecordRepository.save(timeRecord);
+        */
+    }
+
+    @Override
     public EmployeeRecord saveNewEmployee(String username) {
 
         return employeeRecordRepository.save(new EmployeeRecord(username));
@@ -110,6 +145,8 @@ public class TimeRecordServiceImpl implements TimeRecordService {
         ArrayList<TimeRecordRow> timeRecordRows = new ArrayList<>();
         DateFormat date = new SimpleDateFormat("dd-MMM-yyyy");
         DateFormat time = new SimpleDateFormat("HH:mm");
+        date.setTimeZone(TimeZone.getTimeZone(localTimeZone));
+        time.setTimeZone(TimeZone.getTimeZone(localTimeZone));
 
         for(TimeRecord record : timeRecords) {
             TimeRecordRow timeRecordRow = new TimeRecordRow();
