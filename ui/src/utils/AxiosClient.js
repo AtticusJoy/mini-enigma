@@ -22,7 +22,11 @@ export default class AxiosClient {
             alert(response.data);
             this.getData(keycloak, updater);
         }).catch(error => {
-            alert(error)
+            if (error != null) {
+                alert(error.response.data.message);
+            } else {
+                alert(error);
+            }
         })
     };
 
@@ -37,7 +41,11 @@ export default class AxiosClient {
             alert(response.data);
             this.getData(keycloak, updater);
         }).catch(error => {
-            alert(error)
+            if (error != null) {
+                alert(error.response.data.message);
+            } else {
+                alert(error);
+            }
         })
     };
 
@@ -49,7 +57,11 @@ export default class AxiosClient {
             role: this.getRole(keycloak)
         }).then(response => {updater(response.data)
         }).catch(error => {
-            alert(error)
+            if (error != null) {
+                alert(error.response.data.message);
+            } else {
+                alert(error);
+            }
         })
     };
 
