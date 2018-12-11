@@ -22,7 +22,7 @@ export default class AxiosClient {
             alert(response.data);
             this.getData(keycloak, updater);
         }).catch(error => {
-            alert(error.response.data.message)
+            alert(error)
         })
     };
 
@@ -37,7 +37,7 @@ export default class AxiosClient {
             alert(response.data);
             this.getData(keycloak, updater);
         }).catch(error => {
-            alert(error.response.data.message)
+            alert(error)
         })
     };
 
@@ -49,9 +49,9 @@ export default class AxiosClient {
             role: this.getRole(keycloak)
         }).then(response => {updater(response.data)
         }).catch(error => {
-            alert(error.response.data.message)
+            alert(error)
         })
-    }
+    };
 
     // Checking the role in the keycloak object of the current user
     getRole = (keycloak) => {
