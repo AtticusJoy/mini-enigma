@@ -27,6 +27,7 @@ export default class AxiosClient {
             } else {
                 alert(error);
             }
+            console.log(error);
         })
     };
 
@@ -46,6 +47,7 @@ export default class AxiosClient {
             } else {
                 alert(error);
             }
+            console.log(error);
         })
     };
 
@@ -62,6 +64,7 @@ export default class AxiosClient {
             } else {
                 alert(error);
             }
+            console.log(error);
         })
     };
 
