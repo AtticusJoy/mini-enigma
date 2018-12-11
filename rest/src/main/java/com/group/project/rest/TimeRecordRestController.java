@@ -69,4 +69,8 @@ public class TimeRecordRestController {
 
         return new ResponseEntity<>("Successfully updated record with id: " + timeRecordRow.getId(), HttpStatus.OK);
     }
+    
+    void setTimeRecordService(TimeRecordService timeRecordService){
+        this.timeRecordService = timeRecordService;
+    }
 }
