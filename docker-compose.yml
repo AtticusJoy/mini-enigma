@@ -10,25 +10,27 @@ services:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=root_password
+    restart: always
   rest:
     build: ./rest
     image: rest
     ports:
       - "7070:7070"
     command: ["bash", "init.sh"]
+    restart: always
   ui:
     build: ./ui
     image: ui
     ports:
       - "3000:3000"
-      - "35729:35729"
+      - "35729"
     volumes:
       - "./ui:/usr/src/app"
       - "/usr/src/app/node_modules"
     environment:
      - NODE_ENV=development
      - CHOKIDAR_USEPOLLING=true
-    command: ["bash", "init.sh"]
+    restart: always
   postgres:
     image: postgres
     ports:
@@ -36,6 +38,7 @@ services:
     environment:
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=password
+    restart: always
   keycloak:
     image: jboss/keycloak:4.0.0.Final
     ports:
@@ -44,8 +47,9 @@ services:
       - postgres
     environment:
       - DB_VENDOR=POSTGRES
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_USER=CronosAdmin
+      - KEYCLOAK_PASSWORD=cmsc495
       - POSTGRES_USER=keycloak
       - POSTGRES_PASSWORD=password
       - POSTGRES_PORT_5432_TCP_ADDR=postgres
+    restart: always
