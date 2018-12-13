@@ -1,4 +1,10 @@
-// created by Justin Weston
+/*******************************************************************************************
+ * File: User.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Data transfer object composed of user information
+ *
+ ******************************************************************************************/
 
 package com.group.project.dto;
 

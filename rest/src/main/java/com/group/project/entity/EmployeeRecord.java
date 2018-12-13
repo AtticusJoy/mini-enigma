@@ -1,4 +1,11 @@
-// created by Justin Weston
+/*******************************************************************************************
+ * File: EmployeeRecord.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Data model for the employees_record database table. This table contains
+ * employee information
+ *
+ ******************************************************************************************/
 
 package com.group.project.entity;
 
@@ -8,8 +15,8 @@ import javax.persistence.*;
 @Table (name = "employees_record")
 public class EmployeeRecord {
 
+    // Allows the database to generate the primary key employee_record_id
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue
     @Column(name = "employee_record_id")
     private int id;

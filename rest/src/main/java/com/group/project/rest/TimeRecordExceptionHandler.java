@@ -1,3 +1,14 @@
+/*******************************************************************************************
+ * File: TimeRecordExceptionHandler.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Adds an additional layer between any controllers and the client that can be used
+ * to handle exceptions. Both specific exception methods are defined as well as a general
+ * catch all that will handle unexpected errors and return a HttpStatus and error message
+ * through the TimeRecordErrorResponse class
+ *
+ ******************************************************************************************/
+
 package com.group.project.rest;
 
 import org.springframework.http.HttpStatus;
@@ -8,7 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class TimeRecordExceptionHandler {
 
-    // Handles invalid times; e.g. clock in time in future, clock out occurring before clock in
+    // Handles invalid times; e.g. clock in time in future, clock out occurring before clock in, etc.
     @ExceptionHandler
     public ResponseEntity<TimeRecordErrorResponse> handleException(InvalidTimeException exc) {
 
@@ -19,14 +30,14 @@ public class TimeRecordExceptionHandler {
 
     // General time resource exceptions; e.g. invalid role, user already clocked out, etc.
     @ExceptionHandler
-    public ResponseEntity<TimeRecordErrorResponse> handleException(TimeResourceNotFound exc) {
+    public ResponseEntity<TimeRecordErrorResponse> handleException(TimeResourceNotFoundException exc) {
 
         TimeRecordErrorResponse error = new TimeRecordErrorResponse(HttpStatus.NOT_FOUND.value(), exc.getMessage());
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // Catch all for unexpected exceptions
+    // Catch all for unexpected exceptions, e.g. database is offline
     @ExceptionHandler
     public ResponseEntity<TimeRecordErrorResponse> handleGeneralExceptions(Exception exc) {
 

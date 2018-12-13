@@ -1,4 +1,14 @@
-// created by Justin Weston
+/*******************************************************************************************
+ * File: EmployeeRecordRepository.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Allows querying of the database table that EmployeeRecord models. This is done by
+ * extending JpaRepository which contains commonly used query methods that don't need to be
+ * explicitly implemented. Additional queries can be written such as findByUsername to extend
+ * as needed
+ *
+ ******************************************************************************************/
+
 
 package com.group.project.repository;
 

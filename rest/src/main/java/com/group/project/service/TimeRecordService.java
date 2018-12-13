@@ -1,4 +1,10 @@
-// created by Justin Weston
+/*******************************************************************************************
+ * File: TimeRecordService.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Service interface for TimeRecord handling. Defines basic CRUD methods
+ *
+ ******************************************************************************************/
 
 package com.group.project.service;
 

@@ -1,5 +1,13 @@
-package com.group.project.rest;
+/*******************************************************************************************
+ * File: InvalidTimeException.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Used to represent invalid time run time errors. Simply extends RunTimeException,
+ * and uses the superclass constructors to save the reason for the error
+ *
+ ******************************************************************************************/
 
+package com.group.project.rest;
 
 public class InvalidTimeException extends RuntimeException {
 

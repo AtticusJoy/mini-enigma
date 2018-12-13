@@ -24,7 +24,7 @@ public class TimeRecordExceptionHandlerTest {
 
     @Test
     public void handleException1() {
-        ResponseEntity result = timeRecordExceptionHandler.handleException(new TimeResourceNotFound());
+        ResponseEntity result = timeRecordExceptionHandler.handleException(new TimeResourceNotFoundException());
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 

@@ -2,7 +2,7 @@
  * File: TimeRecordRow.java
  * Date: 12Dec2018
  * Author: Justin Weston
- * Purpose: Data transfer object that can be used to return time record data
+ * Purpose: Data transfer object composed of time record data
  *
  ******************************************************************************************/
 

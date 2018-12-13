@@ -1,3 +1,12 @@
+/*******************************************************************************************
+ * File: TimeRecordErrorResponse.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: This class is used to return a status code and error message to the requesting
+ * client
+ *
+ ******************************************************************************************/
+
 package com.group.project.rest;
 
 public class TimeRecordErrorResponse {

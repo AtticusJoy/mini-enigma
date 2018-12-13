@@ -61,7 +61,7 @@ public class TimeRecordRestControllerTest {
         assertThat(result.get(0).getUsername()).isEqualTo("Jack");
     }
 
-    @Test(expected = TimeResourceNotFound.class)
+    @Test(expected = TimeResourceNotFoundException.class)
     public void listTimeRecordsThrowsException() {
         User user = new User();
         user.setRole("Other");

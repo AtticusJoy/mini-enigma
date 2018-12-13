@@ -1,4 +1,11 @@
-// created by Justin Weston
+/*******************************************************************************************
+ * File: TimeRecord.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Data model for the time_action_record database table. This table contains
+ * time records with user clock in/out information
+ *
+ ******************************************************************************************/
 
 package com.group.project.entity;
 
@@ -14,6 +21,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class TimeRecord {
 
+    // Allows the database to generate the primary key employee_record_id
     @Id
     @GeneratedValue
     @Column(name = "time_action_record_id")
@@ -60,6 +68,7 @@ public class TimeRecord {
         return clockIn;
     }
 
+    // Sets clock in date-time and checks to make sure it's not in the future
     public void setClockIn(Date clockIn) {
         if(clockIn.after(new Date())){
             throw new InvalidTimeException("Error, clock in time cannot be in the future!");
@@ -72,6 +81,8 @@ public class TimeRecord {
         return clockOut;
     }
 
+    // Sets clock out date-time and checks to make sure it doesn't occur before clock in time
+    // Also, calls calculateHoursWorked to calculate and save hours worked
     public void setClockOut(Date clockOut) {
         if(clockOut.before(clockIn)){
             throw new InvalidTimeException("Error, clock out time cannot occur before clock in time!");
@@ -89,6 +100,7 @@ public class TimeRecord {
         this.hoursWorked = hoursWorked;
     }
 
+    // Calculates and returns the hours worked
     private double calculateHoursWorked() {
         long duration = clockOut.getTime() - clockIn.getTime();
 
