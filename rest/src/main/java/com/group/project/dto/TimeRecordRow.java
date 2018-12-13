@@ -1,4 +1,10 @@
-// created by Justin Weston
+/*******************************************************************************************
+ * File: TimeRecordRow.java
+ * Date: 12Dec2018
+ * Author: Justin Weston
+ * Purpose: Data transfer object that can be used to return time record data
+ *
+ ******************************************************************************************/
 
 package com.group.project.dto;
 
@@ -8,8 +14,10 @@ public class TimeRecordRow implements Comparable<TimeRecordRow> {
 
     private int id;
     private String username;
+
     // date will be the time in date in the case where a time record spans multiple days
     private String date;
+
     private String timeIn;
     private String timeOut;
     private String hoursWorked;
