@@ -18,7 +18,7 @@ Setting up Keycloak
 2.  Click on the Administration Console link
 3.	Username: CronosAdmin Password: cmsc495
 4.	Upper left corner -> click on Master -> Add realm -> Name: Cronos -> Click Create
-4a. Verify that you are on the correct Realm. The dropdown in the upper left corner should be selecting "Cronos"
+4a.  Verify that you are on the correct Realm. The dropdown in the upper left corner should be selecting "Cronos"
 5.	Upper left corner -> Clients -> Create -> Client ID: frontend-app -> Save
 6.  Upper left corner -> Clients -> frontend-app -> valid Redirect URIs -> http://localhost:8080/* -> Click "+" -> http://localhost:3000/* -> Click "+" -> Scroll down to Web Origin -> Re-enter previous two routes WITHOUT "/*"
 7.	Upper left corner -> Roles -> Add Role -> Role Name: EMPLOYEE -> Save
@@ -26,7 +26,7 @@ Setting up Keycloak
 9.	Left side -> Groups -> New -> Name: Employees -> Save -> Role Mappings tab -> Highlight EMPLOYEE -> Add selected
 10.	Repeat the step 9 for Managers group
 11.	Left side -> Users -> Add user -> Username: any name -> Save -> Credentials tab -> New Password: any password, Password Confirmation: same password -> Reset Password -> Change Password -> Groups tab: highlight proper group for the type of user being created (Employees or Managers) -> Click on Join
-11a. You can view the created users by clicking on the left side Users and then click the "View all users" button
+11a.  You can view the created users by clicking on the left side Users and then click the "View all users" button
 12.	Go to localhost:3000 -> Log in with the user and credentials that you created
 13. On first login with new user -> reset password -> confirm password -> reset password button
 
